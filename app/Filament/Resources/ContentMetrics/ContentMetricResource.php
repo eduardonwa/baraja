@@ -49,7 +49,6 @@ class ContentMetricResource extends Resource
         return [
             'index' => ListContentMetrics::route('/'),
             'create' => CreateContentMetric::route('/create'),
-            'view' => ViewContentMetric::route('/{record}'),
             'edit' => EditContentMetric::route('/{record}/edit'),
         ];
     }

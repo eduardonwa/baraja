@@ -8,72 +8,99 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ContentMetric extends Model
 {
-
-    protected $casts = [
-        'post_date' => 'datetime',
-        'creation_time_hours' => 'decimal:2'    
-    ];
-
     protected $appends = [
-        'conversion_rate_reach_profile_visits',
-        'conversion_rate_profile_visits_follows',
-        'engagement_rate_likes',
-        'engagement_rate_saves',
-        'engagement_rate_total'
+        'reach_to_profile_conversion_rate',
+        'profile_to_follow_conversion_rate',
+        'likes_engagement_rate',
+        'saves_engagement_rate',
+        'comments_engagement_rate',
+        'shares_engagement_rate',
+        'reposts_engagement_rate',
+        'total_engagement_rate',
     ];
+
+    // RELATIONSHIPS
 
     public function rotationCycleItem(): BelongsTo
     {
         return $this->belongsTo(RotationCycleItem::class, 'rotation_cycle_item_id');
     }
 
-    public function getConversionRateReachProfileVisitsAttribute(): float
+    // FORMULAES
+    // These methods calculate conversion and engagement rates based on the stored metrics. They handle division by zero gracefully.
+
+    protected function calculateRate($numerator, $denominator): float
     {
-        if (empty($this->accounts_reached) || empty($this->profile_visits)) {
-            return 0;
+        $denominator = (float) $denominator;
+
+        if ($denominator <= 0) {
+            return 0.0;
         }
 
-        return round(($this->profile_visits / $this->accounts_reached) * 100, 2);
+        return round(((float) $numerator / $denominator) * 100, 2);
     }
 
-    public function getConversionRateProfileVisitsFollowsAttribute(): float
+    public function getReachToProfileConversionRateAttribute(): float
     {
-        if (empty($this->profile_visits) || empty($this->follows)) {
-            return 0;
-        }
-
-        return round(($this->follows / $this->profile_visits) * 100, 2);
+        return $this->calculateRate($this->profile_visits, $this->accounts_reached);
     }
 
-    public function getEngagementRateLikesAttribute(): float
+    public function getProfileToFollowConversionRateAttribute(): float
     {
-        if (empty($this->views) || empty($this->likes)) {
-            return 0;
-        }
-
-        return round(($this->likes / $this->views) * 100, 2);
+        return $this->calculateRate($this->follows, $this->profile_visits);
     }
 
-    public function getEngagementRateSavesAttribute(): float
+    public function getLikesEngagementRateAttribute(): float
     {
-        if (empty($this->views) || empty($this->saves)) {
-            return 0;
-        }
-
-        return round(($this->saves / $this->views) * 100, 2);
+        return $this->calculateRate($this->likes, $this->views);
     }
 
-    public function getEngagementRateTotalAttribute(): float
+    public function getSavesEngagementRateAttribute(): float
     {
-        if (empty($this->views)) {
-            return 0;
-        }
+        return $this->calculateRate($this->saves, $this->views);
+    }
 
-        $totalEngagement = (int) $this->likes
-            + (int) $this->comments
-            + (int) $this->shares
-            + (int) $this->saves;
+    public function getCommentsEngagementRateAttribute(): float
+    {
+        return $this->calculateRate($this->comments, $this->views);
+    }
 
-        return round(($totalEngagement / $this->views) * 100, 2);
+    public function getSharesEngagementRateAttribute(): float
+    {
+        return $this->calculateRate($this->shares, $this->views);
+    }
+
+    public function getRepostsEngagementRateAttribute(): float
+    {
+        return $this->calculateRate($this->reposts, $this->views);
+    }
+
+    public function getTotalEngagementRateAttribute(): float
+    {
+        $totalEngagement =
+            (int) $this->likes +
+            (int) $this->comments +
+            (int) $this->shares +
+            (int) $this->saves +
+            (int) $this->reposts;
+
+        return $this->calculateRate($totalEngagement, $this->views);
+    }
+
+    // SCOPES
+    // These scopes can be used to filter metrics that have the necessary data for conversion and engagement rate calculations
+
+    public function scopeWithConversionData($query)
+    {
+        return $query
+            ->whereNotNull('accounts_reached')
+            ->whereNotNull('profile_visits')
+            ->whereNotNull('follows');
+    }
+
+    public function scopeWithEngagementData($query)
+    {
+        return $query
+            ->where('views', '>', 0);
     }
 }
