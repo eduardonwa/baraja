@@ -3,9 +3,13 @@
 namespace App\Filament\Resources\RotationCycles\RelationManagers;
 
 use App\Models\Idea;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
@@ -20,13 +24,18 @@ class ItemsRelationManager extends RelationManager
     {
         return $schema
             ->components([
+                TextEntry::make('current_hook_name')
+                    ->label('Hook:')
+                    ->state(fn ($record) => $record?->hook?->name ?? '-'),
+                TextEntry::make('current_hook_description')
+                    ->label('Description:')
+                    ->state(fn ($record) => $record?->hook?->description ?? '-'),
                 Select::make('idea_id')
                     ->label('Idea')
                     ->options(function ($record) {
                         if (!$record) {
                             return [];
                         }
-
                         return Idea::query()
                             ->where('hook_id', $record->hook_id)
                             ->orderBy('title')
@@ -35,7 +44,30 @@ class ItemsRelationManager extends RelationManager
                     })
                     ->searchable()
                     ->preload()
-                    ->nullable(),
+                    ->nullable()
+                    ->createOptionForm(function ($record) {
+                        return [
+                            TextEntry::make('create_hook_name')
+                                ->label('Hook')
+                                ->state($record?->hook?->name ?? '-'),
+                            TextEntry::make('create_hook_description')
+                                ->label('Description')
+                                ->state($record?->hook?->description ?? '-'),
+                            TextInput::make('title')
+                                ->required()
+                                ->maxLength(255),
+                            Textarea::make('description')
+                                ->rows(3),
+                        ];
+                    })
+                    ->createOptionUsing(function (array $data, $record) {
+                        // Crea una nueva idea utilizando los datos proporcionados y el hook_id heredado del registro actual
+                        return Idea::create([
+                            'title' => $data['title'],
+                            'description' => $data['description'] ?? null,
+                            'hook_id' => $record->hook_id, // hook_id del registro actual
+                        ])->id;
+                    }),
                 Toggle::make('done')
                     ->label('Done')
             ]);
@@ -66,7 +98,34 @@ class ItemsRelationManager extends RelationManager
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Edit item'),
+                Action::make('editIdea')
+                    ->label('Edit idea')
+                    ->icon('heroicon-o-pencil-square')
+                    ->visible(fn ($record) => filled($record->idea_id))
+                    ->fillForm(fn ($record) => [
+                        'title' => $record->idea?->title,
+                        'description' => $record->idea?->description,
+                    ])
+                    ->schema([
+                        TextInput::make('title')
+                            ->required()
+                            ->maxLength(255),
+                        Textarea::make('description')
+                            ->rows(3),
+                    ])
+                    ->action(function (array $data, $record): void {
+                        if (! $record->idea) {
+                            return;
+                        }
+
+                        $record->idea->update([
+                            'title' => $data['title'],
+                            'description' => $data['description'] ?? null
+                        ]);
+                    })
+                    ->slideOver()
             ]);
     }
 }
