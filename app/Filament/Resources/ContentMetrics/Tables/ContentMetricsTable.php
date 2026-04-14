@@ -16,50 +16,12 @@ class ContentMetricsTable
     {
         return $table
             ->columns([
-                TextColumn::make('rotationCycleItem.id')
-                    ->searchable(),
                 TextColumn::make('title')
-                    ->searchable(),
-                TextColumn::make('post_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('creation_time_hours')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('sourced_from')
                     ->searchable(),
                 TextColumn::make('type')
                     ->searchable(),
-                TextColumn::make('style')
+                TextColumn::make('format')
                     ->searchable(),
-                ImageColumn::make('cover_image'),
-                TextColumn::make('accounts_reached')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('profile_visits')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('follows')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('likes')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('comments')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('shares')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('saves')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('reposts')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('views')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

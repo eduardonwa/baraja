@@ -2,11 +2,10 @@
 
 namespace App\Filament\Resources\ContentMetrics\Schemas;
 
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class ContentMetricForm
@@ -15,40 +14,57 @@ class ContentMetricForm
     {
         return $schema
             ->components([
+                Section::make('Post content')
+                    ->schema([
+                        TextInput::make('title'),
+                        Select::make('type')
+                            ->options([
+                                'image' => 'Image',
+                                'reel' => 'Reel',
+                                'carousel' => 'Carousel'
+                            ]),
+                        Select::make('format')
+                            ->options([
+                                'meme' => 'Meme',
+                                'updates' => 'Updates',
+                                'story' => 'Story'
+                            ]),
+                        Textarea::make('hashtags_used')
+                            ->columnSpanFull(),
+                        Textarea::make('people_tagged_and_dmd')
+                            ->columnSpanFull(),
+                    ]),
+
+                Section::make('Metrics')
+                    ->schema([
+                        TextInput::make('accounts_reached')
+                            ->label('Reach')
+                            ->helperText('The number of unique accounts that have seen your content.')
+                            ->numeric(),
+                        TextInput::make('profile_visits')
+                            ->numeric(),
+                        TextInput::make('follows')
+                            ->label('New followers')
+                            ->helperText('The number of new followers you have gained from this post.')
+                            ->numeric(),
+                        TextInput::make('likes')
+                            ->numeric(),
+                        TextInput::make('comments')
+                            ->numeric(),
+                        TextInput::make('shares')
+                            ->numeric(),
+                        TextInput::make('saves')
+                            ->numeric(),
+                        TextInput::make('reposts')
+                            ->numeric(),
+                        TextInput::make('views')
+                            ->numeric(),
+                    ]),
+                    
                 Select::make('rotation_cycle_item_id')
                     ->relationship('rotationCycleItem', 'id')
-                    ->required(),
-                TextInput::make('title'),
-                DatePicker::make('post_date'),
-                TextInput::make('creation_time_hours')
-                    ->numeric(),
-                TextInput::make('sourced_from'),
-                TextInput::make('type'),
-                TextInput::make('style'),
-                FileUpload::make('cover_image')
-                    ->image(),
-                Textarea::make('people_tagged_and_dmd')
-                    ->columnSpanFull(),
-                Textarea::make('hashtags_used')
-                    ->columnSpanFull(),
-                TextInput::make('accounts_reached')
-                    ->numeric(),
-                TextInput::make('profile_visits')
-                    ->numeric(),
-                TextInput::make('follows')
-                    ->numeric(),
-                TextInput::make('likes')
-                    ->numeric(),
-                TextInput::make('comments')
-                    ->numeric(),
-                TextInput::make('shares')
-                    ->numeric(),
-                TextInput::make('saves')
-                    ->numeric(),
-                TextInput::make('reposts')
-                    ->numeric(),
-                TextInput::make('views')
-                    ->numeric(),
+                    ->required()
+                    ->hidden(),
             ]);
     }
 }

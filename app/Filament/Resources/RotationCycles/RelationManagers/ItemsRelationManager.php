@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\RotationCycles\RelationManagers;
 
+use App\Filament\Resources\ContentMetrics\ContentMetricResource;
+use App\Filament\Resources\ContentMetrics\Pages\EditContentMetric;
 use App\Models\Idea;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -125,7 +127,14 @@ class ItemsRelationManager extends RelationManager
                             'description' => $data['description'] ?? null
                         ]);
                     })
-                    ->slideOver()
+                    ->slideOver(),
+                Action::make('editContentMetric')
+                    ->label('Edit metric')
+                    ->icon('heroicon-o-chart-bar-square')
+                    ->url(fn ($record) => $record->metric
+                        ? ContentMetricResource::geturl('edit', ['record' => $record->metric])
+                        : null)
+                    ->openUrlInNewTab()
             ]);
     }
 }

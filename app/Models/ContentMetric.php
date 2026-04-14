@@ -24,7 +24,7 @@ class ContentMetric extends Model
 
     public function rotationCycleItem(): BelongsTo
     {
-        return $this->belongsTo(RotationCycleItem::class);
+        return $this->belongsTo(RotationCycleItem::class, 'rotation_cycle_item_id');
     }
 
     public function getConversionRateReachProfileVisitsAttribute(): float

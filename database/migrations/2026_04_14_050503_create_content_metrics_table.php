@@ -16,12 +16,8 @@ return new class extends Migration
             $table->foreignId('rotation_cycle_item_id')->constrained()->cascadeOnDelete();
             
             $table->string('title')->nullable();
-            $table->date('post_date')->nullable();
-            $table->decimal('creation_time_hours', 8, 2)->nullable();
-            $table->string('sourced_from')->nullable();
             $table->string('type')->nullable();
-            $table->string('style')->nullable();
-            $table->string('cover_image')->nullable();
+            $table->string('format')->nullable();
             $table->text('people_tagged_and_dmd')->nullable();
             $table->text('hashtags_used')->nullable();
             

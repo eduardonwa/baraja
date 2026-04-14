@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Mail\Mailables\Content;
 use Illuminate\Validation\ValidationException;
 
 class RotationCycleItem extends Model
@@ -22,6 +21,12 @@ class RotationCycleItem extends Model
 
     protected static function booted(): void
     {
+        static::created(function ($item) {
+            $item->metric()->create([
+                'rotation_cycle_item_id' => $item->id
+            ]);
+        });
+
         static::saving(function ($item) {
             if ($item->idea_id) {
                 $idea = Idea::find($item->idea_id);
@@ -39,6 +44,20 @@ class RotationCycleItem extends Model
 
             if (!$item->done) {
                 $item->completed_at = null;
+            }
+        });
+
+        static::saved(function ($item) {
+            if (! $item->idea_id || ! $item->metric) {
+                return;
+            }
+
+            $idea = $item->idea;
+
+            if ($idea && blank($item->metric->title)) {
+                $item->metric->update([
+                    'title' => $idea->title
+                ]);
             }
         });
     }
@@ -60,6 +79,6 @@ class RotationCycleItem extends Model
 
     public function metric(): HasOne
     {
-        return $this->hasOne(ContentMetric::class);
+        return $this->hasOne(ContentMetric::class, 'rotation_cycle_item_id');
     }
 }
