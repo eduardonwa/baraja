@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Mail\Mailables\Content;
+use Illuminate\Validation\ValidationException;
 
 class RotationCycleItem extends Model
 {
@@ -18,6 +19,29 @@ class RotationCycleItem extends Model
         'done' => 'boolean',
         'completed_at' => 'datetime'
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function ($item) {
+            if ($item->idea_id) {
+                $idea = Idea::find($item->idea_id);
+
+                if ($idea && $idea->hook_id !== $item->hook_id) {
+                    throw ValidationException::withMessages([
+                        'idea_id' => 'The selected idea does not belong to the same hook as this cycle item.'
+                    ]);
+                }
+            }
+
+            if ($item->done && !$item->completed_at) {
+                $item->completed_at = now();
+            }
+
+            if (!$item->done) {
+                $item->completed_at = null;
+            }
+        });
+    }
 
     public function cycle(): BelongsTo
     {
@@ -37,5 +61,5 @@ class RotationCycleItem extends Model
     public function metric(): HasOne
     {
         return $this->hasOne(ContentMetric::class);
-    }    
+    }
 }

@@ -45,4 +45,9 @@ class RotationCycleItemResource extends Resource
             'edit' => EditRotationCycleItem::route('/{record}/edit'),
         ];
     }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 }

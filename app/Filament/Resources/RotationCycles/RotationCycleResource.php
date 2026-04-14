@@ -5,6 +5,7 @@ namespace App\Filament\Resources\RotationCycles;
 use App\Filament\Resources\RotationCycles\Pages\CreateRotationCycle;
 use App\Filament\Resources\RotationCycles\Pages\EditRotationCycle;
 use App\Filament\Resources\RotationCycles\Pages\ListRotationCycles;
+use App\Filament\Resources\RotationCycles\RelationManagers\ItemsRelationManager;
 use App\Filament\Resources\RotationCycles\Schemas\RotationCycleForm;
 use App\Filament\Resources\RotationCycles\Tables\RotationCyclesTable;
 use App\Models\RotationCycle;
@@ -35,7 +36,7 @@ class RotationCycleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ItemsRelationManager::class,
         ];
     }
 

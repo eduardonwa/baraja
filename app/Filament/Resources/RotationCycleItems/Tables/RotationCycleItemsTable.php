@@ -15,29 +15,21 @@ class RotationCycleItemsTable
     {
         return $table
             ->columns([
-                TextColumn::make('rotation_cycle_id')
+                TextColumn::make('rotationCycle.name')
+                    ->label('Cycle')
+                    ->sortable(),
+                TextColumn::make('position')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('hook.name')
                     ->searchable(),
                 TextColumn::make('idea.title')
                     ->searchable(),
-                TextColumn::make('position')
-                    ->numeric()
-                    ->sortable(),
                 IconColumn::make('done')
                     ->boolean(),
                 TextColumn::make('completed_at')
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
