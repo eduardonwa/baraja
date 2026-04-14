@@ -5,6 +5,7 @@ namespace App\Filament\Resources\RotationCycles\Pages;
 use App\Filament\Resources\RotationCycles\RotationCycleResource;
 use App\Models\Hook;
 use App\Models\RotationCycle;
+use App\Services\CycleNameGenerator;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,7 @@ class ListRotationCycles extends ListRecords
                         ]);
 
                         $cycle = RotationCycle::create([
-                            'name' => 'Cycle ' . now()->format('d-m-Y H:i'),
+                            'name' => CycleNameGenerator::generateUnique(),
                             'generated_at' => now(),
                             'is_active' => true
                         ]);
