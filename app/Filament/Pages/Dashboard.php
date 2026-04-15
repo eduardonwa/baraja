@@ -2,25 +2,43 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\ContentMetricsOverview;
-use App\Filament\Widgets\ConversionEfficiencyOverview;
-use App\Filament\Widgets\EngagementAveragesOverview;
-use App\Filament\Widgets\EngagementBreakdownOverview;
-use App\Filament\Widgets\PostsOverview;
+use App\Filament\Widgets\ContentHeader;
+use App\Filament\Widgets\ContentOverview;
+use App\Filament\Widgets\FunnelBreakdownWidget;
+use App\Filament\Widgets\FunnelHeader;
+use App\Filament\Widgets\FunnelKpiWidget;
+use App\Filament\Widgets\PerformanceHeader;
+use App\Filament\Widgets\PerformanceOverview;
+use App\Filament\Widgets\PerformanceSummary;
+use App\Filament\Widgets\VolumeHeader;
+use App\Filament\Widgets\VolumeOverview;
 use Filament\Pages\Page;
 
 class Dashboard extends Page
 {
     protected string $view = 'filament.pages.dashboard';
 
+    public function getHeaderWidgetsColumns(): int | array
+    {
+        return 12;
+    }
+
     protected function getHeaderWidgets(): array
     {
         return [
-            ContentMetricsOverview::class,
-            PostsOverview::class,
-            EngagementAveragesOverview::class,
-            EngagementBreakdownOverview::class,
-            ConversionEfficiencyOverview::class
+            FunnelHeader::class,
+            FunnelBreakdownWidget::class,
+            FunnelKpiWidget::class,
+
+            VolumeHeader::class,
+            VolumeOverview::class,
+
+            PerformanceHeader::class,
+            PerformanceOverview::class,
+            PerformanceSummary::class,
+            
+            ContentHeader::class,
+            ContentOverview::class
         ];
     }
 }

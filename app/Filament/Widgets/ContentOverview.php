@@ -3,10 +3,10 @@
 namespace App\Filament\Widgets;
 
 use App\Models\ContentMetric;
-use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
-class EngagementBreakdownOverview extends BaseWidget
+class ContentOverview extends StatsOverviewWidget
 {
     protected static ?int $sort = 4;
 
