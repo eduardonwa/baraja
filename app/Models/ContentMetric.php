@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ContentMetric extends Model
 {
     protected $appends = [
-        'reach_to_profile_conversion_rate',
-        'profile_to_follow_conversion_rate',
+        'view_to_profile_conversion_rate',
+        'profile_visit_to_follow_conversion_rate',
+        //getViewToProfileVisitRateAttribute
         'likes_engagement_rate',
         'saves_engagement_rate',
         'comments_engagement_rate',
@@ -40,15 +41,27 @@ class ContentMetric extends Model
         return round(((float) $numerator / $denominator) * 100, 2);
     }
 
-    public function getReachToProfileConversionRateAttribute(): float
+    // Views2Profile Visit Conversion Rates
+
+    public function getViewToProfileConversionRateAttribute(): float
+    {
+        return $this->calculateRate($this->profile_visits, $this->views);
+    }
+
+    // Profile2Follow Conversion Rates
+
+    public function getProfileVisitToFollowConversionRateAttribute(): float
+    {
+        return $this->calculateRate($this->follows, $this->profile_visits);
+    }
+
+    public function getReachToProfileVisitRateAttribute(): float
     {
         return $this->calculateRate($this->profile_visits, $this->accounts_reached);
     }
 
-    public function getProfileToFollowConversionRateAttribute(): float
-    {
-        return $this->calculateRate($this->follows, $this->profile_visits);
-    }
+    // ENGAGEMENT RATES
+    // These methods calculate the engagement rates for each metric based on the number of views. They also handle division by zero gracefully
 
     public function getLikesEngagementRateAttribute(): float
     {
@@ -93,7 +106,7 @@ class ContentMetric extends Model
     public function scopeWithConversionData($query)
     {
         return $query
-            ->whereNotNull('accounts_reached')
+            ->where('views', '>', 0)
             ->whereNotNull('profile_visits')
             ->whereNotNull('follows');
     }

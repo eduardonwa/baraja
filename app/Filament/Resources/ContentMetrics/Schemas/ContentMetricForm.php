@@ -37,10 +37,6 @@ class ContentMetricForm
 
                 Section::make('Metrics')
                     ->schema([
-                        TextInput::make('accounts_reached')
-                            ->label('Reach')
-                            ->helperText('The number of unique accounts that have seen your content.')
-                            ->numeric(),
                         TextInput::make('profile_visits')
                             ->numeric(),
                         TextInput::make('follows')

@@ -5,7 +5,6 @@ namespace App\Filament\Resources\ContentMetrics;
 use App\Filament\Resources\ContentMetrics\Pages\CreateContentMetric;
 use App\Filament\Resources\ContentMetrics\Pages\EditContentMetric;
 use App\Filament\Resources\ContentMetrics\Pages\ListContentMetrics;
-use App\Filament\Resources\ContentMetrics\Pages\ViewContentMetric;
 use App\Filament\Resources\ContentMetrics\Schemas\ContentMetricForm;
 use App\Filament\Resources\ContentMetrics\Schemas\ContentMetricInfolist;
 use App\Filament\Resources\ContentMetrics\Tables\ContentMetricsTable;

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('people_tagged_and_dmd')->nullable();
             $table->text('hashtags_used')->nullable();
             
-            $table->unsignedInteger('accounts_reached')->nullable();
             $table->unsignedInteger('profile_visits')->nullable();
             $table->unsignedInteger('follows')->nullable();
 
