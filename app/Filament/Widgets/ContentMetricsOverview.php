@@ -16,12 +16,12 @@ class ContentMetricsOverview extends StatsOverviewWidget
         
         // promedios
         $avgViewToProfile = round(
-            $conversionMetrics->avg(fn ($m) => $m->view_to_profile_visit_rate) ?? 0,
+            $conversionMetrics->avg(fn ($m) => $m->view_to_profile_conversion_rate) ?? 0,
             2
         );
 
         $avgProfileToFollow = round(
-            $conversionMetrics->avg(fn ($m) => $m->profile_to_follow_conversion_rate) ?? 0,
+            $conversionMetrics->avg(fn ($m) => $m->profile_visit_to_follow_conversion_rate) ?? 0,
             2
         );
 
@@ -31,7 +31,7 @@ class ContentMetricsOverview extends StatsOverviewWidget
         );
 
         return [
-            Stat::make('Reach -> Profile', $avgViewToProfile . '%')
+            Stat::make('Views -> Profile', $avgViewToProfile . '%')
                 ->description('How many profile visits came from content views.'),
 
             Stat::make('Profile -> Follow', $avgProfileToFollow . '%')

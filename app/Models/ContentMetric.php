@@ -11,7 +11,6 @@ class ContentMetric extends Model
     protected $appends = [
         'view_to_profile_conversion_rate',
         'profile_visit_to_follow_conversion_rate',
-        //getViewToProfileVisitRateAttribute
         'likes_engagement_rate',
         'saves_engagement_rate',
         'comments_engagement_rate',

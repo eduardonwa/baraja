@@ -59,7 +59,6 @@ class ContentMetricsTable
                             ->schema([
                                 TextEntry::make('title'),
                                 TextEntry::make('type'),
-                                TextEntry::make('accounts_reached'),
                                 TextEntry::make('profile_visits'),
                                 TextEntry::make('follows'),
                                 TextEntry::make('likes'),
@@ -74,7 +73,7 @@ class ContentMetricsTable
                         Section::make('Calculated Metrics')
                             ->schema([
                                 TextEntry::make('reach_to_profile_conversion_rate')
-                                    ->label('Reach → Profile')
+                                    ->label('Views → Profile')
                                     ->formatStateUsing(fn ($state) => number_format((float) $state, 2) . '%'),
 
                                 TextEntry::make('profile_to_follow_conversion_rate')
