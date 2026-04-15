@@ -17,8 +17,8 @@ class EngagementAveragesOverview extends BaseWidget
             ->get();
 
         $avgViews = round($metrics->avg('views_7d') ?? 0, 2);
-        $avgLikesRate = round($metrics->avg('likes_engagement_rate') ?? 0, 2);
-        $avgSavesRate = round($metrics->avg('saves_engagement_rate') ?? 0, 2);
+        $avgProfileVisits = round($metrics->avg('profile_visits_7d') ?? 0, 2);
+        $avgTotalEngagementRate = round($metrics->avg('total_engagement_rate') ?? 0, 2);
 
         return [
             Stat::make('Avg Views', number_format($avgViews))
@@ -26,15 +26,15 @@ class EngagementAveragesOverview extends BaseWidget
                 ->icon('heroicon-m-eye')
                 ->color('primary'),
 
-            Stat::make('Avg Likes %', number_format($avgLikesRate) . '%')
-                ->description('Promedio de likes_engagement_rate')
-                ->icon('heroicon-m-hand-thumb-up')
-                ->color('success'),
+            Stat::make('Avg Profile Visits', number_format($avgProfileVisits))
+                ->description('Promedio de visitas al perfil')
+                ->icon('heroicon-m-user')
+                ->color('info'),
 
-            Stat::make('Avg Saves %', number_format($avgSavesRate) . '%')
-                ->description('Promedio de saves_engagement_rate')
-                ->icon('heroicon-m-bookmark')
-                ->color('warning'),
+            Stat::make('Avg Engagement %', number_format($avgTotalEngagementRate) . '%')
+                ->description('Promedio de engagement total por views')
+                ->icon('heroicon-m-sparkles')
+                ->color('success'),
         ];
     }
 }
