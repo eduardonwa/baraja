@@ -9,6 +9,8 @@ class PerformanceOverview extends ChartWidget
 {
     protected ?string $heading = null;
 
+    protected ?string $description = 'Mostrando 28 resultados';
+
     protected int | string | array $columnSpan = 'full';
 
     protected ?string $maxHeight = '377px';
@@ -19,12 +21,15 @@ class PerformanceOverview extends ChartWidget
     {
         $posts = ContentMetric::query()
             ->latest()
-            ->take(14)
+            ->take(28)
             ->get()
             ->reverse()
             ->values();
 
-        $labels = $posts->map(fn ($post, $i) => 'Post ' . ($i + 1))->toArray();
+        $labels = $posts->map(function ($post, $i) {
+            return $post->title
+                ?? 'item ' . ($post->rotationCycleItem?->position ?? $i + 1);
+        })->toArray();
 
         $totalEngagement = $posts->map(function ($post) {
             return
@@ -60,5 +65,21 @@ class PerformanceOverview extends ChartWidget
     protected function getType(): string
     {
         return 'bar';
+    }
+
+    protected function getOptions(): array
+    {
+        return [
+            'scales' => [
+                'x' => [
+                    'ticks' => [
+                        'display' => false
+                    ],
+                    'grid' => [
+                        'display' => false
+                    ]
+                ]
+            ]
+        ];
     }
 }

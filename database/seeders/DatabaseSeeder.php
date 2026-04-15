@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\DashboardSeeder;
 use Database\Seeders\HookSeeder;
+use Database\Seeders\IdeaSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +24,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            HookSeeder::class
+            HookSeeder::class,
+            IdeaSeeder::class,
+            DashboardSeeder::class
         ]);
     }
 }

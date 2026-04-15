@@ -13,7 +13,7 @@ class PerformanceSummary extends Widget
 
     public function getViewData(): array
     {
-        $posts = ContentMetric::query()->get();
+        $posts = ContentMetric::query()->withEngagementData()->get();
 
         $posts = $posts->map(function ($post) {
             $post->total_engagement =
