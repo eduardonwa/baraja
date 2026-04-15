@@ -31,14 +31,14 @@ class ContentMetricsOverview extends StatsOverviewWidget
         );
 
         return [
-            Stat::make('Views -> Profile', $avgViewToProfile . '%')
-                ->description('How many profile visits came from content views.'),
+            Stat::make('Views -> Profile (7d)', $avgViewToProfile . '%')
+                ->description('How many profile visits came from content views after 7 days.'),
 
-            Stat::make('Profile -> Follow', $avgProfileToFollow . '%')
-                ->description('How many people followed you after visiting your profile.'),
+            Stat::make('Profile -> Follow (7d)', $avgProfileToFollow . '%')
+                ->description('How many people followed you after visiting your profile, based on 7-day data.'),
 
-            Stat::make('Total Engagement', $avgTotalEngagement . '%')
-                ->description('Total engagement based on likes, comments, shares, saves, and reposts.')
+            Stat::make('Total Engagement (7d)', $avgTotalEngagement . '%')
+                ->description('Final engagement rate based on all interactions after 7 days.')
         ];
     }
 }

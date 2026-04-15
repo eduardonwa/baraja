@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\RotationCycleItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 
 class ContentMetric extends Model
 {
@@ -26,8 +27,7 @@ class ContentMetric extends Model
         return $this->belongsTo(RotationCycleItem::class, 'rotation_cycle_item_id');
     }
 
-    // FORMULAES
-    // These methods calculate conversion and engagement rates based on the stored metrics. They handle division by zero gracefully.
+    // FORMULAS
 
     protected function calculateRate($numerator, $denominator): float
     {
@@ -40,79 +40,70 @@ class ContentMetric extends Model
         return round(((float) $numerator / $denominator) * 100, 2);
     }
 
-    // Views2Profile Visit Conversion Rates
+    // CONVERSION RATES
 
     public function getViewToProfileConversionRateAttribute(): float
     {
-        return $this->calculateRate($this->profile_visits, $this->views);
+        return $this->calculateRate($this->profile_visits_7d, $this->views_7d);
     }
-
-    // Profile2Follow Conversion Rates
 
     public function getProfileVisitToFollowConversionRateAttribute(): float
     {
-        return $this->calculateRate($this->follows, $this->profile_visits);
-    }
-
-    public function getReachToProfileVisitRateAttribute(): float
-    {
-        return $this->calculateRate($this->profile_visits, $this->accounts_reached);
+        return $this->calculateRate($this->follows_7d, $this->profile_visits_7d);
     }
 
     // ENGAGEMENT RATES
-    // These methods calculate the engagement rates for each metric based on the number of views. They also handle division by zero gracefully
 
     public function getLikesEngagementRateAttribute(): float
     {
-        return $this->calculateRate($this->likes, $this->views);
+        return $this->calculateRate($this->likes_7d, $this->views_7d);
     }
 
     public function getSavesEngagementRateAttribute(): float
     {
-        return $this->calculateRate($this->saves, $this->views);
+        return $this->calculateRate($this->saves_7d, $this->views_7d);
     }
 
     public function getCommentsEngagementRateAttribute(): float
     {
-        return $this->calculateRate($this->comments, $this->views);
+        return $this->calculateRate($this->comments_7d, $this->views_7d);
     }
 
     public function getSharesEngagementRateAttribute(): float
     {
-        return $this->calculateRate($this->shares, $this->views);
+        return $this->calculateRate($this->shares_7d, $this->views_7d);
     }
 
     public function getRepostsEngagementRateAttribute(): float
     {
-        return $this->calculateRate($this->reposts, $this->views);
+        return $this->calculateRate($this->reposts_7d, $this->views_7d);
     }
 
     public function getTotalEngagementRateAttribute(): float
     {
         $totalEngagement =
-            (int) $this->likes +
-            (int) $this->comments +
-            (int) $this->shares +
-            (int) $this->saves +
-            (int) $this->reposts;
+            (int) $this->likes_7d +
+            (int) $this->comments_7d +
+            (int) $this->shares_7d +
+            (int) $this->saves_7d +
+            (int) $this->reposts_7d;
 
-        return $this->calculateRate($totalEngagement, $this->views);
+        return $this->calculateRate($totalEngagement, $this->views_7d);
     }
 
     // SCOPES
-    // These scopes can be used to filter metrics that have the necessary data for conversion and engagement rate calculations
 
-    public function scopeWithConversionData($query)
+    public function scopeWithConversionData(Builder $query): Builder
     {
         return $query
-            ->where('views', '>', 0)
-            ->whereNotNull('profile_visits')
-            ->whereNotNull('follows');
+            ->where('views_7d', '>', 0)
+            ->whereNotNull('profile_visits_7d')
+            ->whereNotNull('follows_7d');
     }
 
-    public function scopeWithEngagementData($query)
+    public function scopeWithEngagementData(Builder $query): Builder
     {
         return $query
-            ->where('views', '>', 0);
+            ->where('views_7d', '>', 0);
     }
 }
