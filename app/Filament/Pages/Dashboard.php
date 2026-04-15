@@ -3,6 +3,8 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\ContentMetricsOverview;
+use App\Filament\Widgets\EngagementAveragesOverview;
+use App\Filament\Widgets\PostsOverview;
 use Filament\Pages\Page;
 
 class Dashboard extends Page
@@ -12,7 +14,9 @@ class Dashboard extends Page
     protected function getHeaderWidgets(): array
     {
         return [
-            ContentMetricsOverview::class
+            ContentMetricsOverview::class,
+            PostsOverview::class,
+            EngagementAveragesOverview::class
         ];
     }
 }
