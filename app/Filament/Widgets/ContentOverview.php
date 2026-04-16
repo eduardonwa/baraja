@@ -21,18 +21,18 @@ class ContentOverview extends StatsOverviewWidget
         $avgCommentsRate = round($metrics->avg('comments_engagement_rate') ?? 0, 2);
 
         return [
-            Stat::make('Attraction', number_format($avgLikesRate) . '%')
-                ->description('Likes altos = contenido atractivo')
+            Stat::make('Atracción', number_format($avgLikesRate) . '%')
+                ->description('Contenido atractivo')
                 ->icon('heroicon-m-hand-thumb-up')
                 ->color('success'),
 
-            Stat::make('Utility', number_format($avgSavesRate) . '%')
-                ->description('Saves altos = contenido útil')
+            Stat::make('Utilidad', number_format($avgSavesRate) . '%')
+                ->description('Contenido útil')
                 ->icon('heroicon-m-bookmark')
                 ->color('warning'),
 
-            Stat::make('Conversation', number_format($avgCommentsRate) . '%')
-                ->description('Comments altos = genera conversación')
+            Stat::make('Conversación', number_format($avgCommentsRate) . '%')
+                ->description('Genera conversación')
                 ->icon('heroicon-m-chat-bubble-left-right')
                 ->color('primary'),
         ];

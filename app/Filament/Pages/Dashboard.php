@@ -36,8 +36,8 @@ class Dashboard extends Page
             VolumeOverview::class,
 
             PerformanceHeader::class,
-            PerformanceOverview::class,
             PerformanceSummary::class,
+            PerformanceOverview::class,
             
             ContentHeader::class,
             ContentOverview::class

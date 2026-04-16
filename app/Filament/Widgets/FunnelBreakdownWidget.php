@@ -30,13 +30,13 @@ class FunnelBreakdownWidget extends Widget
         );
 
         return [
-            'subheading' => 'Dónde se está rompiendo el recorrido entre views, profile visits y follows.',
+            'subheading' => 'Dónde se está rompiendo el recorrido entre vistas, visitas al perfil y seguidores.',
 
-            'viewToProfileLabel' => 'Views → Profile (7d)',
+            'viewToProfileLabel' => 'Vistas → Perfil (7d)',
             'viewToProfileValue' => $this->formatPercentage($avgViewToProfile),
             'viewToProfileText' => $this->getViewToProfileSupportText($avgViewToProfile),
 
-            'profileToFollowLabel' => 'Profile → Follow (7d)',
+            'profileToFollowLabel' => 'Perfil → Seguidores (7d)',
             'profileToFollowValue' => $this->formatPercentage($avgProfileToFollow),
             'profileToFollowText' => $this->getProfileToFollowSupportText($avgProfileToFollow),
         ];

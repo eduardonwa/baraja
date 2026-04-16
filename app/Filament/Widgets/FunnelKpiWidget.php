@@ -28,7 +28,7 @@ class FunnelKpiWidget extends BaseWidget
             ->first();
 
         return [
-            Stat::make('View-to-Follow Efficiency', $this->formatPercentage($avgEfficiency, true))
+            Stat::make('Tasa de conversión a seguidores', $this->formatPercentage($avgEfficiency, true))
                 ->description($this->getEfficiencyInsight($avgEfficiency, $bestPost))
                 ->icon('heroicon-m-bolt')
                 ->color($this->getEfficiencyColor($avgEfficiency)),

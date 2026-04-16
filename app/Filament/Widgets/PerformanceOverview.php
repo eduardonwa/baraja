@@ -46,15 +46,15 @@ class PerformanceOverview extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Total Engagement',
+                    'label' => 'Interacción Total',
                     'data' => $totalEngagement,
                 ],
                 [
-                    'label' => 'Comments',
+                    'label' => 'Comentarios',
                     'data' => $comments,
                 ],
                 [
-                    'label' => 'Saves',
+                    'label' => 'Guardados',
                     'data' => $saves,
                 ],
             ],
