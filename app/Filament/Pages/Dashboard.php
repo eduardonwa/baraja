@@ -12,6 +12,7 @@ use App\Filament\Widgets\PerformanceOverview;
 use App\Filament\Widgets\PerformanceSummary;
 use App\Filament\Widgets\VolumeHeader;
 use App\Filament\Widgets\VolumeOverview;
+use App\Filament\Widgets\VolumeOverviewChart;
 use Filament\Pages\Page;
 
 class Dashboard extends Page
@@ -31,6 +32,7 @@ class Dashboard extends Page
             FunnelKpiWidget::class,
 
             VolumeHeader::class,
+            VolumeOverviewChart::class,
             VolumeOverview::class,
 
             PerformanceHeader::class,
