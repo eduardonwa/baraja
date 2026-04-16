@@ -6,7 +6,6 @@
                     <p class="label">Vistas promedio (7d)</p>
                     <p class="value">{{ $avgViews }}</p>
                 </div>
-
                 <div class="stat">
                     <p class="label">Visitas promedio al perfil</p>
                     <p class="value">{{ $avgProfileVisits }}</p>

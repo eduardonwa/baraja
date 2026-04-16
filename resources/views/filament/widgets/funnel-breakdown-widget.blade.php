@@ -1,70 +1,50 @@
 <x-filament-widgets::widget>
-    {{-- 
-        Este widget es el breakdown del funnel.
-        No es una lista de stats homogéneos.
-        Su función es explicar dónde está la fricción.
-    --}}
-
-        {{--
-            Encabezado general del bloque.
-            Aquí introduces qué representa esta sección.
-        --}}
-        <div>
-            <p>
-                {{ $subheading }}
-            </p>
-        </div>
-
-        {{--
-            Contenedor principal de las dos etapas.
-            Luego aquí puedes decidir si visualmente
-            las pones una debajo de otra o lado a lado.
-        --}}
-        <div>
-            {{--
-                Etapa 1 del funnel:
-                cuántos viewers terminaron entrando al perfil.
-            --}}
-            <div>
-                {{--
-                    Etiqueta de la etapa.
-                --}}
-                <p>
+    <div class="funnel-breakdown">
+        <h2 class="subheading"> {{ $subheading }} </h2>
+        <div class="funnel-wrap">
+            <div class="funnel-stage">
+                <p class="funnel-label">
                     {{ $viewToProfileLabel }}
                 </p>
-
-                {{--
-                    Valor principal de esta etapa.
-                --}}
+                
                 <strong>
                     {{ $viewToProfileValue }}
                 </strong>
-
-                {{--
-                    Texto interpretativo.
-                    Explica qué significa ese porcentaje.
-                --}}
-                <p>
-                    {{ $viewToProfileText }}
+                
+                <p class="funnel-description {{ $viewToProfileState }}">
+                    <span class="lead">
+                        {{ $viewToProfileLead }}
+                    </span>
+                    <span class="body">
+                        {{ $viewToProfileBody }}
+                    </span>
                 </p>
             </div>
 
-            {{--
-                Etapa 2 del funnel:
-                cuántas visitas al perfil terminaron en follow.
-            --}}
-            <div>
-                <p>
+            <div class="funnel-stage">
+                <p class="funnel-label">
                     {{ $profileToFollowLabel }}
                 </p>
-
+    
                 <strong>
                     {{ $profileToFollowValue }}
                 </strong>
-
-                <p>
-                    {{ $profileToFollowText }}
+    
+                <p class="funnel-description {{ $profileToFollowState }}">
+                    <span class="lead">
+                        {{ $profileToFollowLead }}
+                    </span>
+                    <span class="body">
+                        {{ $profileToFollowBody }}
+                    </span>
                 </p>
             </div>
         </div>
+
+        @if ($topPost)
+            <p class="funnel-top">
+                Mejor desempeño: <strong>{{ $topPost }}</strong>
+            </p>
+        @endif
+    </div>
 </x-filament-widgets::widget>

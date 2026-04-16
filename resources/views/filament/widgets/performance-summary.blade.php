@@ -1,16 +1,16 @@
 <x-filament-widgets::widget>
-    <div style="display: flex; gap: 24px;">
+    <div class="performance-summary">
 
-        <div style="flex:1;">
-            <p>Mejor publicación</p>
-            <h3>
+        <div class="performance-card">
+            <p class="label">Mejor publicación</p>
+            <h3 class="post">
                 {{ $best?->title ?? 'Sin datos' }}
             </h3>
         </div>
 
-        <div style="flex:1;">
-            <p>Peor publicación</p>
-            <h3>
+        <div class="performance-card">
+            <p class="label">Peor publicación</p>
+            <h3 class="post">
                 {{ $worst?->title ?? 'Sin datos' }}
             </h3>
         </div>

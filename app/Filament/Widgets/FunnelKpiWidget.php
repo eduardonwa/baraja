@@ -23,13 +23,9 @@ class FunnelKpiWidget extends BaseWidget
             2
         );
 
-        $bestPost = $metrics
-            ->sortByDesc(fn (ContentMetric $metric) => $this->calculateEfficiencyScore($metric))
-            ->first();
-
         return [
             Stat::make('Tasa de conversión a seguidores', $this->formatPercentage($avgEfficiency, true))
-                ->description($this->getEfficiencyInsight($avgEfficiency, $bestPost))
+                ->description($this->getEfficiencyInsight($avgEfficiency))
                 ->icon('heroicon-m-bolt')
                 ->color($this->getEfficiencyColor($avgEfficiency)),
         ];
@@ -54,26 +50,17 @@ class FunnelKpiWidget extends BaseWidget
         return number_format($value) . '%';
     }
 
-    protected function getEfficiencyInsight(float $score, ?ContentMetric $bestPost): string
+    protected function getEfficiencyInsight(float $score): string
     {
-        $post = $bestPost
-            ? ($bestPost->title
-                ?? $bestPost->rotationCycleItem?->title
-                ?? "Post #{$bestPost->id}")
-            : null;
-
         if ($score >= 3) {
-            return 'Funnel fuerte. Tu contenido convierte bien a follow'
-                . ($post ? " · Top: {$post}" : '');
+            return 'Embudo fuerte: Convierte bien a seguidores';
         }
 
         if ($score >= 1) {
-            return 'Conversión media. Hay fricción entre contenido y perfil'
-                . ($post ? " · Top: {$post}" : '');
+            return 'Conversión OK: Hay fricción entre contenido y perfil';
         }
 
-        return 'Baja conversión. Muchas views, pocos follows'
-            . ($post ? " · Top: {$post}" : '');
+        return 'Baja conversión: Muchas vistas, pocos seguidores';
     }
 
     protected function getEfficiencyColor(float $score): string
