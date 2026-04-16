@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Ideas;
 
+use App\Filament\Clusters\Planeador\PlaneadorCluster;
 use App\Filament\Resources\Ideas\Pages\CreateIdea;
 use App\Filament\Resources\Ideas\Pages\EditIdea;
 use App\Filament\Resources\Ideas\Pages\ListIdeas;
@@ -18,9 +19,11 @@ class IdeaResource extends Resource
 {
     protected static ?string $model = Idea::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLightBulb;
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    protected static ?string $cluster = PlaneadorCluster::class;
 
     public static function form(Schema $schema): Schema
     {

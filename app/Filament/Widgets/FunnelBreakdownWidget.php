@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\ContentMetrics\ContentMetricResource;
 use App\Models\ContentMetric;
 use Filament\Support\Assets\Css;
 use Filament\Widgets\Widget;
@@ -42,7 +43,7 @@ class FunnelBreakdownWidget extends Widget
                 ?? $bestPost->rotationCycleItem?->title
                 ?? "Post #{$bestPost->id}")
             : null;
-        
+                
         return [
             'subheading' => 'Dónde se rompe el recorrido entre vistas, perfil y seguidores (últimos 7 días).',
 
@@ -60,7 +61,8 @@ class FunnelBreakdownWidget extends Widget
             'profileToFollowBody' => $profileToFollowText['body'],
             'profileToFollowState' => $profileToFollowText['state'],
 
-            'topPost' => $topPost
+            'topPost' => $topPost,
+            'topPostUrl' => $bestPost ? ContentMetricResource::getUrl('edit', ['record' => $bestPost]) : null
         ];
     }
 

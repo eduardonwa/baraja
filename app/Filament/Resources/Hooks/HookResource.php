@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Hooks;
 
+use App\Filament\Clusters\Planeador\PlaneadorCluster;
 use App\Filament\Resources\Hooks\Pages\CreateHook;
 use App\Filament\Resources\Hooks\Pages\EditHook;
 use App\Filament\Resources\Hooks\Pages\ListHooks;
@@ -21,6 +22,8 @@ class HookResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected static ?string $cluster = PlaneadorCluster::class;
 
     public static function form(Schema $schema): Schema
     {

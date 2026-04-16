@@ -1,6 +1,7 @@
 <x-filament-widgets::widget>
     <div class="funnel-breakdown">
         <h2 class="subheading"> {{ $subheading }} </h2>
+        
         <div class="funnel-wrap">
             <div class="funnel-stage">
                 <p class="funnel-label">
@@ -41,10 +42,15 @@
             </div>
         </div>
 
-        @if ($topPost)
-            <p class="funnel-top">
+        @if ($topPost && $topPostUrl)
+            <a
+                class="funnel-top"
+                href="{{ $topPostUrl }}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 Mejor desempeño: <strong>{{ $topPost }}</strong>
-            </p>
+            </a>
         @endif
     </div>
 </x-filament-widgets::widget>

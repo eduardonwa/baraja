@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\RotationCycles;
 
+use App\Filament\Clusters\Baraja\BarajaCluster;
 use App\Filament\Resources\RotationCycles\Pages\CreateRotationCycle;
 use App\Filament\Resources\RotationCycles\Pages\EditRotationCycle;
 use App\Filament\Resources\RotationCycles\Pages\ListRotationCycles;
@@ -20,6 +21,8 @@ class RotationCycleResource extends Resource
     protected static ?string $model = RotationCycle::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $cluster = BarajaCluster::class;
 
     protected static ?string $recordTitleAttribute = 'name';
 

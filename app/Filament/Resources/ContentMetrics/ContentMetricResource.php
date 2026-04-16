@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\ContentMetrics;
 
+use App\Filament\Clusters\Analiticas\AnaliticasCluster;
+use App\Filament\Clusters\Baraja\BarajaCluster;
 use App\Filament\Resources\ContentMetrics\Pages\CreateContentMetric;
 use App\Filament\Resources\ContentMetrics\Pages\EditContentMetric;
 use App\Filament\Resources\ContentMetrics\Pages\ListContentMetrics;
@@ -20,6 +22,8 @@ class ContentMetricResource extends Resource
     protected static ?string $model = ContentMetric::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $cluster = AnaliticasCluster::class;
 
     public static function form(Schema $schema): Schema
     {

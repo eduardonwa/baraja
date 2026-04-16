@@ -3,16 +3,16 @@
 
         <div class="performance-card">
             <p class="label">Mejor publicación</p>
-            <h3 class="post">
+            <a href="{{ $bestPostUrl }}" target="_blank" rel="noopener noreferrer" class="idea">
                 {{ $best?->title ?? 'Sin datos' }}
-            </h3>
+            </a> 
         </div>
 
         <div class="performance-card">
             <p class="label">Peor publicación</p>
-            <h3 class="post">
+            <a href="{{ $worstPostUrl }}" target="_blank" rel="noopener noreferrer" class="idea">
                 {{ $worst?->title ?? 'Sin datos' }}
-            </h3>
+            </a>
         </div>
 
     </div>

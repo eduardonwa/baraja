@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\ContentMetrics\ContentMetricResource;
 use App\Models\ContentMetric;
 use Filament\Widgets\Widget;
 
@@ -29,9 +30,19 @@ class PerformanceSummary extends Widget
         $best = $posts->sortByDesc('total_engagement')->first();
         $worst = $posts->sortBy('total_engagement')->first();
 
+        $bestPostUrl = $best
+            ? ContentMetricResource::getUrl('edit', ['record' => $best])
+            : null;
+
+        $worstPostUrl = $worst
+            ? ContentMetricResource::getUrl('edit', ['record' => $worst])
+            : null;
+
         return [
             'best' => $best,
+            'bestPostUrl' => $bestPostUrl,
             'worst' => $worst,
+            'worstPostUrl' => $worstPostUrl,
         ];
     }
 }
