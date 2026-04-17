@@ -31,7 +31,7 @@ class RotationCycleItemsTable
                     ->boolean(),
                 TextColumn::make('completed_at')
                     ->label('Finalizado el')
-                    ->dateMex()
+                    ->date('j M Y')
                     ->sortable(),
             ])
             ->filters([

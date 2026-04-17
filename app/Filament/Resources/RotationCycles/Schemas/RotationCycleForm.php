@@ -15,8 +15,8 @@ class RotationCycleForm
             ->components([
                 TextInput::make('name')
                     ->label('Nombre'),
-                DateTimePicker:: make('generated_at')
-                    ->label('Generado el')
+                DateTimePicker:: make('created_at')
+                    ->label('Creado el')
                     ->hint('DD/MM/AAAA')
                     ->native(false)
                     ->displayFormat('d / m / Y — h:i A')

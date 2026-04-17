@@ -26,6 +26,8 @@ class RotationCycleItemResource extends Resource
     protected static ?string $pluralModelLabel = 'Combinaciones';
 
     protected static ?string $cluster = BarajaCluster::class;
+    
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {

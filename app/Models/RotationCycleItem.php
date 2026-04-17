@@ -48,17 +48,22 @@ class RotationCycleItem extends Model
         });
 
         static::saved(function ($item) {
-            if (! $item->idea_id || ! $item->metric) {
-                return;
+            if ($item->idea_id && $item->metric) {
+                $idea = $item->idea;
+
+                if ($idea && blank($item->metric->title)) {
+                    $item->metric->update([
+                        'title' => $idea->title,
+                    ]);
+                }
             }
 
-            $idea = $item->idea;
+            // recalcular si el ciclo ya quedó terminado
+            $item->cycle?->updateFinishedStatus();
+        });
 
-            if ($idea && blank($item->metric->title)) {
-                $item->metric->update([
-                    'title' => $idea->title
-                ]);
-            }
+        static::deleted(function (RotationCycleItem $item) {
+            $item->cycle?->updateFinishedStatus();
         });
     }
 

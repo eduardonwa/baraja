@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('rotation_cycles', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->timestamp('generated_at')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->string('generation_mode')->default('full');
+            $table->unsignedInteger('size')->default(0);
+            $table->boolean('is_finished')->default(false);
             $table->timestamps();
         });
     }

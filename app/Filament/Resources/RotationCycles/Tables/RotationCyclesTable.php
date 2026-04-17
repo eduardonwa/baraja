@@ -18,17 +18,13 @@ class RotationCyclesTable
                 TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable(),
-                TextColumn::make('generated_at')
-                    ->label('Generado el')
-                    ->dateMex()
+                TextColumn::make('created_at')
+                    ->label('Creado el')
+                    ->date('j M Y')
                     ->sortable(),
                 IconColumn::make('is_active')
                     ->label('Estado')
                     ->boolean(),
-                TextColumn::make('created_at')
-                    ->label('Fecha creación')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->label('Fecha actualización')
                     ->sortable()
@@ -43,8 +39,7 @@ class RotationCyclesTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make()
-                        ->label('Eliminar selección'),
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
