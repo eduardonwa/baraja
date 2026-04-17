@@ -16,9 +16,10 @@ class RotationCycleItemsTable
         return $table
             ->columns([
                 TextColumn::make('rotationCycle.name')
-                    ->label('Cycle')
+                    ->label('Lote')
                     ->sortable(),
                 TextColumn::make('position')
+                    ->label('Posición')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('hook.name')
@@ -26,9 +27,11 @@ class RotationCycleItemsTable
                 TextColumn::make('idea.title')
                     ->searchable(),
                 IconColumn::make('done')
+                    ->label('Estado')
                     ->boolean(),
                 TextColumn::make('completed_at')
-                    ->dateTime()
+                    ->label('Finalizado el')
+                    ->dateMex()
                     ->sortable(),
             ])
             ->filters([

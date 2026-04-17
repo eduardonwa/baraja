@@ -21,7 +21,7 @@ class ContentMetricResource extends Resource
 {
     protected static ?string $model = ContentMetric::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentChartBar;
 
     protected static ?string $cluster = AnaliticasCluster::class;
 

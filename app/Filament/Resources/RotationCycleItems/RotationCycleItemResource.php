@@ -21,6 +21,10 @@ class RotationCycleItemResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $modelLabel = 'Combinación';
+    
+    protected static ?string $pluralModelLabel = 'Combinaciones';
+
     protected static ?string $cluster = BarajaCluster::class;
 
     public static function form(Schema $schema): Schema

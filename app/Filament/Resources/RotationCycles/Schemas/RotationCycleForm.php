@@ -13,9 +13,12 @@ class RotationCycleForm
     {
         return $schema
             ->components([
-                TextInput::make('name'),
-                DateTimePicker::make('generated_at'),
+                TextInput::make('name')
+                    ->label('Nombre'),
+                DateTimePicker:: make('generated_at')
+                    ->label('Generado el'),
                 Toggle::make('is_active')
+                    ->label(fn ($state) => $state ? 'Activado' : 'Desactivado')
                     ->required(),
             ]);
     }

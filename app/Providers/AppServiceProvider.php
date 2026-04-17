@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        Carbon::setLocale('es');
     }
 
     /**
@@ -51,5 +55,13 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+
+        TextColumn::macro('dateMex', function () {
+            return $this->formatStateUsing(fn ($state) =>
+                $state
+                    ? Carbon::parse($state)->translatedFormat('j \d\e F \d\e Y')
+                    : null
+            );
+        });
     }
 }

@@ -18,7 +18,7 @@ class ListRotationCycles extends ListRecords
     {
         return [
             Action::make('generateCycle')
-                ->label('Generate Cycle')
+                ->label('Barajar')
                 ->color('primary')
                 ->requiresConfirmation()
                 ->action(function () {

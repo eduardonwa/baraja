@@ -16,18 +16,19 @@ class RotationCyclesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable(),
                 TextColumn::make('generated_at')
-                    ->dateTime()
+                    ->label('Generado el')
+                    ->dateMex()
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label('Estado')
                     ->boolean(),
                 TextColumn::make('created_at')
-                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -35,11 +36,13 @@ class RotationCyclesTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Editar'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->label('Eliminar selección'),
                 ]),
             ]);
     }

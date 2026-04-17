@@ -22,15 +22,19 @@ class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
 
+    protected static ?string $title = 'Combinaciones';
+
+    // protected static ?string $modelLabel = 'combinación';
+
     public function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextEntry::make('current_hook_name')
-                    ->label('Hook:')
+                    ->label('Hook')
                     ->state(fn ($record) => $record?->hook?->name ?? '-'),
                 TextEntry::make('current_hook_description')
-                    ->label('Description:')
+                    ->label('Descripción')
                     ->state(fn ($record) => $record?->hook?->description ?? '-'),
                 Select::make('idea_id')
                     ->label('Idea')
@@ -53,12 +57,14 @@ class ItemsRelationManager extends RelationManager
                                 ->label('Hook')
                                 ->state($record?->hook?->name ?? '-'),
                             TextEntry::make('create_hook_description')
-                                ->label('Description')
+                                ->label('Descripción')
                                 ->state($record?->hook?->description ?? '-'),
                             TextInput::make('title')
+                                ->label('Título')
                                 ->required()
                                 ->maxLength(255),
                             Textarea::make('description')
+                                ->label('Descripción')
                                 ->rows(3),
                         ];
                     })
@@ -71,7 +77,7 @@ class ItemsRelationManager extends RelationManager
                         ])->id;
                     }),
                 Toggle::make('done')
-                    ->label('Done')
+                    ->label('Terminado')
             ]);
     }
 
@@ -80,6 +86,7 @@ class ItemsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('position')
+                    ->label('Posición')
                     ->sortable(),
                 TextColumn::make('hook.name')
                     ->label('Hook')
@@ -90,10 +97,12 @@ class ItemsRelationManager extends RelationManager
                     ->placeholder('-')
                     ->searchable(),
                 IconColumn::make('done')
+                    ->label('Estado')
                     ->boolean()
                     ->sortable(),
                 TextColumn::make('completed_at')
-                    ->dateTime()
+                    ->label('Completado el')
+                    ->dateMex()
                     ->placeholder('-'),
             ])
             ->headerActions([
@@ -101,9 +110,12 @@ class ItemsRelationManager extends RelationManager
             ])
             ->recordActions([
                 EditAction::make()
-                    ->label('Edit item'),
+                    ->label('Editar combo')
+                    ->modalHeading('Editar combinación')
+                    ->modalSubmitActionLabel('Guardar cambios')
+                    ->modalCancelActionLabel('Cancelar'),
                 Action::make('editIdea')
-                    ->label('Edit idea')
+                    ->label('Editar idea')
                     ->icon('heroicon-o-pencil-square')
                     ->visible(fn ($record) => filled($record->idea_id))
                     ->fillForm(fn ($record) => [
@@ -112,9 +124,11 @@ class ItemsRelationManager extends RelationManager
                     ])
                     ->schema([
                         TextInput::make('title')
+                            ->label('Título')
                             ->required()
                             ->maxLength(255),
                         Textarea::make('description')
+                            ->label('Descripción')
                             ->rows(3),
                     ])
                     ->action(function (array $data, $record): void {
@@ -129,7 +143,7 @@ class ItemsRelationManager extends RelationManager
                     })
                     ->slideOver(),
                 Action::make('editContentMetric')
-                    ->label('Edit metric')
+                    ->label('Editar métrica')
                     ->icon('heroicon-o-chart-bar-square')
                     ->url(fn ($record) => $record->metric
                         ? ContentMetricResource::geturl('edit', ['record' => $record->metric])
