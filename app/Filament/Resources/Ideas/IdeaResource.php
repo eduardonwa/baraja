@@ -46,8 +46,6 @@ class IdeaResource extends Resource
     {
         return [
             'index' => ListIdeas::route('/'),
-            'create' => CreateIdea::route('/create'),
-            'edit' => EditIdea::route('/{record}/edit'),
         ];
     }
 }

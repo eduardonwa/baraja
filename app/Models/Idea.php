@@ -22,4 +22,14 @@ class Idea extends Model
     {
         return $this->hasMany(RotationCycleItem::class);
     }
+
+    public function getCycleNamesAttribute(): string
+    {
+        return $this->cycleItems
+            ->loadMissing('cycle')
+            ->pluck('cycle.name')
+            ->filter()
+            ->unique()
+            ->join(', ');
+    }
 }

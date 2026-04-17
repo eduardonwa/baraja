@@ -3,8 +3,11 @@
 namespace App\Filament\Resources\Hooks\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -32,7 +35,18 @@ class HooksTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->modalHeading('Editar hook')
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('Nombre')
+                            ->required()
+                            ->maxLength(255),
+                        Textarea::make('description')
+                            ->label('Descripción')
+                            ->rows(5)
+                            ->maxLength(255)
+                    ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

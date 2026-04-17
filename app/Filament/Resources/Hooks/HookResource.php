@@ -46,8 +46,6 @@ class HookResource extends Resource
     {
         return [
             'index' => ListHooks::route('/'),
-            'create' => CreateHook::route('/create'),
-            'edit' => EditHook::route('/{record}/edit'),
         ];
     }
 }

@@ -14,7 +14,8 @@ class HookForm
             ->components([
                 TextInput::make('name')
                     ->label('Nombre')
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull(),
                 Textarea::make('description')
                     ->label('Descripción')
                     ->columnSpanFull(),
