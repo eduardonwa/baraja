@@ -14,11 +14,11 @@ class ContentMetricInfolist
             ->components([
                 Section::make('Calculated metrics')
                     ->schema([
-                        TextEntry::make('reach_to_profile_conversion_rate')
-                            ->label('Reach → Profile')
+                        TextEntry::make('view_to_profile_conversion_rate')
+                            ->label('Views → Profile')
                             ->formatStateUsing(fn ($state) => number_format((float) $state, 2) . '%'),
 
-                        TextEntry::make('profile_to_follow_conversion_rate')
+                        TextEntry::make('profile_visit_to_follow_conversion_rate')
                             ->label('Profile → Follow')
                             ->formatStateUsing(fn ($state) => number_format((float) $state, 2) . '%'),
 

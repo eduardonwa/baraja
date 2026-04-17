@@ -57,7 +57,7 @@ class IdeasTable
                             ->rows(5)
                             ->autosize(),
                         TextEntry::make('cycle_links')
-                            ->label('Lotes')
+                            ->label('Sets')
                             ->inlineLabel()
                             ->state(function (?Idea $record) {
                                 if (! $record) {

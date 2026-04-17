@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\RotationCycles\RelationManagers;
 
 use App\Filament\Resources\ContentMetrics\ContentMetricResource;
-use App\Filament\Resources\ContentMetrics\Pages\EditContentMetric;
 use App\Models\Idea;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -22,7 +21,7 @@ class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
 
-    protected static ?string $title = 'Combinaciones';
+    protected static ?string $title = 'Combos';
 
     // protected static ?string $modelLabel = 'combinación';
 

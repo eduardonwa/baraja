@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ContentMetrics\Tables;
 
 use App\Filament\Resources\ContentMetrics\ContentMetricResource;
-use App\Filament\Resources\ContentMetrics\Pages\ViewContentMetric;
+use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -13,9 +13,9 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\HtmlString;
 
 class ContentMetricsTable
 {
@@ -65,12 +65,18 @@ class ContentMetricsTable
                             ->schema([
                                 TextEntry::make('title')
                                     ->label('Título')
-                                    ->color('gray')
-                                    ->inlineLabel(),
+                                    ->color('gray'),
                                 TextEntry::make('type')
                                     ->label('Tipo')
+                                    ->color('gray'),
+                                TextEntry::make('created_at')
+                                    ->label('Fecha de creación')
                                     ->color('gray')
-                                    ->inlineLabel(),
+                                    ->formatStateUsing(fn ($state) =>
+                                        $state
+                                            ? Carbon::parse($state)->translatedFormat('j F Y')
+                                            : null
+                                    ),
                                 Tabs::make('Métricas')
                                     ->tabs([
                                         Tab::make('Impacto inicial (24h)')
@@ -114,7 +120,7 @@ class ContentMetricsTable
                                     ])
                                     ->columnSpanFull(),
                             ])
-                            ->columns(2)
+                            ->columns(3)
                             ->contained(false),
 
                         Section::make('Métricas calculadas')

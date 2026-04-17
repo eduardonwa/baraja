@@ -16,7 +16,7 @@ class RotationCycleItemsTable
         return $table
             ->columns([
                 TextColumn::make('cycle.name')
-                    ->label('Lote')
+                    ->label('Set')
                     ->sortable(),
                 TextColumn::make('position')
                     ->label('Posición')

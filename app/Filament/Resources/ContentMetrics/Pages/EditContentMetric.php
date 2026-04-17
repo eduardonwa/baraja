@@ -17,7 +17,7 @@ class EditContentMetric extends EditRecord
         return [
             DeleteAction::make(),
             Action::make('backToCycle')
-                ->label('Regresar a lote')
+                ->label('Regresar al set')
                 ->icon('heroicon-o-arrow-uturn-left')
                 ->url(fn () => RotationCycleResource::getUrl('edit', [
                     'record' => $this->record->rotationCycleItem->rotation_cycle_id,

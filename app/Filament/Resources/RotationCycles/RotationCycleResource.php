@@ -22,9 +22,9 @@ class RotationCycleResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $modelLabel = 'Lote';
+    protected static ?string $modelLabel = 'Set';
     
-    protected static ?string $pluralModelLabel = 'Lotes';
+    protected static ?string $pluralModelLabel = 'Sets';
 
     protected static ?string $cluster = BarajaCluster::class;
 

@@ -27,7 +27,7 @@ class IdeaForm
                     ->label('Descripción')
                     ->columnSpanFull(),
                 TextEntry::make('cycle_links')
-                    ->label('Lotes')
+                    ->label('Sets')
                     ->inlineLabel()
                     ->state(function (?Idea $record) {
                         if (! $record) {
