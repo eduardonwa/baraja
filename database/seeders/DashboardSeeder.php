@@ -23,7 +23,7 @@ class DashboardSeeder extends Seeder
 
         $cycle = RotationCycle::create([
             'name' => 'DTC - 2 Weeks',
-            'generation_mode' => 'full',
+            'generation_mode' => 'azar',
             'size' => Hook::count(),
             'is_finished' => true,
             'is_active' => true,

@@ -45,7 +45,7 @@ class ListRotationCycles extends ListRecords
 
                         $cycle = RotationCycle::create([
                             'name' => CycleNameGenerator::generateUnique(),
-                            'generation_mode' => 'full',
+                            'generation_mode' => 'azar',
                             'size' => $hooks->count(),
                             'is_active' => true,
                         ]);
@@ -102,7 +102,7 @@ class ListRotationCycles extends ListRecords
 
                         $cycle = RotationCycle::create([
                             'name' => $data['name'],
-                            'generation_mode' => 'custom',
+                            'generation_mode' => 'manual',
                             'size' => $data['start_mode'] === 'selected_hooks'
                                 ? count($selectedHookIds)
                                 : 0,

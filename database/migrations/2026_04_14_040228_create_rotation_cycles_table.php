@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->string('generation_mode')->default('full');
+            $table->string('generation_mode')->default('azar');
             $table->unsignedInteger('size')->default(0);
             $table->boolean('is_finished')->default(false);
             $table->timestamps();
