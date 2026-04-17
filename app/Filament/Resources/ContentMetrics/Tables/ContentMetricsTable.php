@@ -50,25 +50,24 @@ class ContentMetricsTable
             ])
             ->recordActions([
                 ViewAction::make()
-                    ->modalHeading('Detalles de métrica')
                     ->modalWidth('5xl')
                     ->modalFooterActions([
                         Action::make('edit')
-                            ->label('Edit')
+                            ->label('Editar')
                             ->icon('heroicon-o-pencil')
                             ->url(fn ($record) => ContentMetricResource::getUrl('edit', [
                                 'record' => $record
                             ]))
                     ])
                     ->schema([
-                        Section::make('Información de publicación')
+                        Section::make()
                             ->schema([
                                 TextEntry::make('title')
                                     ->label('Título')
                                     ->color('gray')
                                     ->inlineLabel(),
                                 TextEntry::make('type')
-                                    ->label('Tipo de publicación')
+                                    ->label('Tipo')
                                     ->color('gray')
                                     ->inlineLabel(),
                                 Tabs::make('Métricas')
@@ -86,7 +85,7 @@ class ContentMetricsTable
                                             ])
                                             ->columns(2),
 
-                                        Tab::make('Fase de validación')
+                                        Tab::make('Fase de validación (3d)')
                                             ->schema([
                                                 TextEntry::make('views_3d')->label('Vistas')->color('gray'),
                                                 TextEntry::make('profile_visits_3d')->label('Visitas al perfil')->color('gray'),
@@ -99,7 +98,7 @@ class ContentMetricsTable
                                             ])
                                             ->columns(2),
                                         
-                                        Tab::make('Rendimiento final')
+                                        Tab::make('Rendimiento final (7d)')
                                             ->schema([
                                                 TextEntry::make('views_7d')->label('Vistas')->color('gray'),
                                                 TextEntry::make('profile_visits_7d')->label('Visitas al perfil')->color('gray'),
@@ -114,7 +113,8 @@ class ContentMetricsTable
                                     ])
                                     ->columnSpanFull(),
                             ])
-                            ->columns(2),
+                            ->columns(2)
+                            ->contained(false),
 
                         Section::make('Métricas calculadas')
                             ->schema([

@@ -17,8 +17,10 @@ class IdeaForm
                     ->relationship('hook', 'name')
                     ->required(),
                 TextInput::make('title')
+                    ->label('Título')
                     ->required(),
                 Textarea::make('description')
+                    ->label('Descripción')
                     ->columnSpanFull(),
             ]);
     }

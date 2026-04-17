@@ -17,8 +17,14 @@ class RotationCycleItemForm
                     ->relationship('idea', 'title')
                     ->required(),
                 Toggle::make('done')
+                    ->label(fn ($state) => $state ? 'Terminado' : 'Pendiente')
                     ->required(),
-                DateTimePicker::make('completed_at'),
+                DateTimePicker::make('completed_at')
+                    ->hint('DD/MM/AAAA')
+                    ->label('Completado el')
+                    ->native(false)
+                    ->displayFormat('d / m / Y — h:i A')
+                    ->seconds(false),
             ]);
     }
 }

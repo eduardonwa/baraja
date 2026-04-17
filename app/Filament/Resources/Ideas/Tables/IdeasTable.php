@@ -17,6 +17,7 @@ class IdeasTable
                 TextColumn::make('hook.name')
                     ->searchable(),
                 TextColumn::make('title')
+                    ->label('Título')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

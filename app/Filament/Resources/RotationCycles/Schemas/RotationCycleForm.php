@@ -16,7 +16,11 @@ class RotationCycleForm
                 TextInput::make('name')
                     ->label('Nombre'),
                 DateTimePicker:: make('generated_at')
-                    ->label('Generado el'),
+                    ->label('Generado el')
+                    ->hint('DD/MM/AAAA')
+                    ->native(false)
+                    ->displayFormat('d / m / Y — h:i A')
+                    ->seconds(false),
                 Toggle::make('is_active')
                     ->label(fn ($state) => $state ? 'Activado' : 'Desactivado')
                     ->required(),

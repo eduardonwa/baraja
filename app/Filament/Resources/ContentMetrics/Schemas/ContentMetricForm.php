@@ -17,58 +17,62 @@ class ContentMetricForm
     {
         return $schema
             ->components([
-                Section::make('Post content')
+                Section::make('Publicación')
                     ->schema([
-                        TextInput::make('title'),
+                        TextInput::make('title')
+                            ->label('Título'),
 
                         Select::make('type')
+                            ->label('Tipo')
                             ->options([
-                                'image' => 'Image',
+                                'image' => 'Imagen',
                                 'reel' => 'Reel',
-                                'carousel' => 'Carousel',
+                                'carousel' => 'Carrusel',
                             ]),
 
                         Select::make('format')
                             ->options([
                                 'meme' => 'Meme',
-                                'updates' => 'Updates',
+                                'updates' => 'Noticias',
                                 'story' => 'Story',
                             ]),
 
                         Textarea::make('hashtags_used')
+                            ->label('Etiquetas')
                             ->columnSpanFull(),
 
                         Textarea::make('people_tagged_and_dmd')
+                            ->label('Cuentas etiquetadas y contactadas')
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
 
-                Section::make('Metrics snapshots')
+                Section::make('Registro de métricas')
                     ->schema([
                         Tabs::make('MetricsTabs')
                             ->tabs([
-                                Tab::make('Initial impact (24h)')
+                                Tab::make('Impacto inicial (24h)')
                                     ->schema([
                                         TextInput::make('views_24h')
-                                            ->label('Views')
+                                            ->label('Vistas')
                                             ->numeric(),
                                         TextInput::make('profile_visits_24h')
-                                            ->label('Profile visits')
+                                            ->label('Visitas al perfil')
                                             ->numeric(),
                                         TextInput::make('follows_24h')
-                                            ->label('New followers')
+                                            ->label('Nuevos seguidores')
                                             ->numeric(),
                                         TextInput::make('likes_24h')
-                                            ->label('Likes')
+                                            ->label('Me gusta')
                                             ->numeric(),
                                         TextInput::make('comments_24h')
-                                            ->label('Comments')
+                                            ->label('Comentarios')
                                             ->numeric(),
                                         TextInput::make('shares_24h')
-                                            ->label('Shares')
+                                            ->label('Compartidos')
                                             ->numeric(),
                                         TextInput::make('saves_24h')
-                                            ->label('Saves')
+                                            ->label('Guardados')
                                             ->numeric(),
                                         TextInput::make('reposts_24h')
                                             ->label('Reposts')
@@ -76,28 +80,28 @@ class ContentMetricForm
                                     ])
                                     ->columns(2),
 
-                                Tab::make('Validation phase (3d)')
+                                Tab::make('Fase de validación (3d)')
                                     ->schema([
                                         TextInput::make('views_3d')
-                                            ->label('Views')
+                                            ->label('Vistas')
                                             ->numeric(),
                                         TextInput::make('profile_visits_3d')
-                                            ->label('Profile visits')
+                                            ->label('Visitas al perfil')
                                             ->numeric(),
                                         TextInput::make('follows_3d')
-                                            ->label('New followers')
+                                            ->label('Nuevos seguidores')
                                             ->numeric(),
                                         TextInput::make('likes_3d')
-                                            ->label('Likes')
+                                            ->label('Me gusta')
                                             ->numeric(),
                                         TextInput::make('comments_3d')
-                                            ->label('Comments')
+                                            ->label('Comentarios')
                                             ->numeric(),
                                         TextInput::make('shares_3d')
-                                            ->label('Shares')
+                                            ->label('Compartidos')
                                             ->numeric(),
                                         TextInput::make('saves_3d')
-                                            ->label('Saves')
+                                            ->label('Guardados')
                                             ->numeric(),
                                         TextInput::make('reposts_3d')
                                             ->label('Reposts')
@@ -105,28 +109,28 @@ class ContentMetricForm
                                     ])
                                     ->columns(2),
 
-                                Tab::make('Final performance (7d)')
+                                Tab::make('Rendimiento final (7d)')
                                     ->schema([
                                         TextInput::make('views_7d')
-                                            ->label('Views')
+                                            ->label('Vistas')
                                             ->numeric(),
                                         TextInput::make('profile_visits_7d')
-                                            ->label('Profile visits')
+                                            ->label('Visitas al perfil')
                                             ->numeric(),
                                         TextInput::make('follows_7d')
-                                            ->label('New followers')
+                                            ->label('Nuevos seguidores')
                                             ->numeric(),
                                         TextInput::make('likes_7d')
-                                            ->label('Likes')
+                                            ->label('Me gusta')
                                             ->numeric(),
                                         TextInput::make('comments_7d')
-                                            ->label('Comments')
+                                            ->label('Comentarios')
                                             ->numeric(),
                                         TextInput::make('shares_7d')
-                                            ->label('Shares')
+                                            ->label('Compartidos')
                                             ->numeric(),
                                         TextInput::make('saves_7d')
-                                            ->label('Saves')
+                                            ->label('Guardados')
                                             ->numeric(),
                                         TextInput::make('reposts_7d')
                                             ->label('Reposts')
