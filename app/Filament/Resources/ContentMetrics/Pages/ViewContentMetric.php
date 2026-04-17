@@ -14,6 +14,7 @@ class ViewContentMetric extends ViewRecord
     {
         return [
             EditAction::make()
+                ->label('Editar')
         ];
     }
 }

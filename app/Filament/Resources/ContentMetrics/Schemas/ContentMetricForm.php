@@ -78,28 +78,28 @@ class ContentMetricForm
 
                                 Tab::make('Validation phase (3d)')
                                     ->schema([
-                                        TextInput::make('views_72h')
+                                        TextInput::make('views_3d')
                                             ->label('Views')
                                             ->numeric(),
-                                        TextInput::make('profile_visits_72h')
+                                        TextInput::make('profile_visits_3d')
                                             ->label('Profile visits')
                                             ->numeric(),
-                                        TextInput::make('follows_72h')
+                                        TextInput::make('follows_3d')
                                             ->label('New followers')
                                             ->numeric(),
-                                        TextInput::make('likes_72h')
+                                        TextInput::make('likes_3d')
                                             ->label('Likes')
                                             ->numeric(),
-                                        TextInput::make('comments_72h')
+                                        TextInput::make('comments_3d')
                                             ->label('Comments')
                                             ->numeric(),
-                                        TextInput::make('shares_72h')
+                                        TextInput::make('shares_3d')
                                             ->label('Shares')
                                             ->numeric(),
-                                        TextInput::make('saves_72h')
+                                        TextInput::make('saves_3d')
                                             ->label('Saves')
                                             ->numeric(),
-                                        TextInput::make('reposts_72h')
+                                        TextInput::make('reposts_3d')
                                             ->label('Reposts')
                                             ->numeric(),
                                     ])

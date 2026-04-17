@@ -21,7 +21,7 @@ class ContentMetric extends Model
     ];
 
     // RELATIONSHIPS
-
+    
     public function rotationCycleItem(): BelongsTo
     {
         return $this->belongsTo(RotationCycleItem::class, 'rotation_cycle_item_id');

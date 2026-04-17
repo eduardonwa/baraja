@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\ContentMetrics;
 
 use App\Filament\Clusters\Analiticas\AnaliticasCluster;
-use App\Filament\Clusters\Baraja\BarajaCluster;
 use App\Filament\Resources\ContentMetrics\Pages\CreateContentMetric;
 use App\Filament\Resources\ContentMetrics\Pages\EditContentMetric;
 use App\Filament\Resources\ContentMetrics\Pages\ListContentMetrics;
@@ -22,6 +21,10 @@ class ContentMetricResource extends Resource
     protected static ?string $model = ContentMetric::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentChartBar;
+
+    protected static ?string $label = 'Analítica';
+    
+    protected static ?string $pluralLabel = 'Analíticas';
 
     protected static ?string $cluster = AnaliticasCluster::class;
 
