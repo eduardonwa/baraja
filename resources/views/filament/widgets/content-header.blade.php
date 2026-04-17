@@ -1,5 +1,5 @@
 <x-filament-widgets::widget>
-    <h2 style="font-size: 1.2rem; color: whitesmoke;">
+    <h2 class="heading">
         Contenido
     </h2>
 </x-filament-widgets::widget>

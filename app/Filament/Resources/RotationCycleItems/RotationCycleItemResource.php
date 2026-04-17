@@ -50,8 +50,6 @@ class RotationCycleItemResource extends Resource
     {
         return [
             'index' => ListRotationCycleItems::route('/'),
-            'create' => CreateRotationCycleItem::route('/create'),
-            'edit' => EditRotationCycleItem::route('/{record}/edit'),
         ];
     }
 

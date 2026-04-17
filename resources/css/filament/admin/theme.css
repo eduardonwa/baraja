@@ -13,11 +13,18 @@
     --value: 1.5rem;
 }
 
+.heading {
+    font-size: 1.2rem;
+}
+
+.dark .heading {
+    color: whitesmoke;
+}
+
 /*  ajustes parrafo:
     - en moviles el text "lead" se situa en su propia línea. en escritorio, al lado de la descripcion.
     - colores del estado
 */
-
 .funnel-breakdown {
     display: grid;
     row-gap: calc(0.25rem * 2);

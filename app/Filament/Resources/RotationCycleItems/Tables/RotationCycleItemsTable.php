@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\RotationCycleItems\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
@@ -18,27 +19,19 @@ class RotationCycleItemsTable
                 TextColumn::make('cycle.name')
                     ->label('Set')
                     ->sortable(),
-                TextColumn::make('position')
-                    ->label('Posición')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('hook.name')
                     ->searchable(),
                 TextColumn::make('idea.title')
                     ->searchable(),
                 IconColumn::make('done')
                     ->label('Estado')
-                    ->boolean(),
-                TextColumn::make('completed_at')
-                    ->label('Finalizado el')
-                    ->date('j M Y')
-                    ->sortable(),
+                    ->boolean()
             ])
             ->filters([
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
