@@ -18,10 +18,12 @@ class HooksTable
                     ->label('Nombre')
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Fecha creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Fecha actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

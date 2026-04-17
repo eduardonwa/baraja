@@ -26,9 +26,11 @@ class RotationCyclesTable
                     ->label('Estado')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('Fecha creación')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Fecha actualización')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

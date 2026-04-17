@@ -22,7 +22,7 @@ class DashboardSeeder extends Seeder
         }
 
         $cycle = RotationCycle::create([
-            'name' => 'Dashboard Test Cycle - 2 Weeks',
+            'name' => 'DTC - 2 Weeks',
             'generated_at' => now()->subDays(14),
             'is_active' => true,
         ]);

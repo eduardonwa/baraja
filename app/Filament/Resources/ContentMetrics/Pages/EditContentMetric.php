@@ -6,7 +6,6 @@ use App\Filament\Resources\ContentMetrics\ContentMetricResource;
 use App\Filament\Resources\RotationCycles\RotationCycleResource;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditContentMetric extends EditRecord
@@ -16,7 +15,6 @@ class EditContentMetric extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
             DeleteAction::make(),
             Action::make('backToCycle')
                 ->label('Regresar a lote')
