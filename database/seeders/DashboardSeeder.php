@@ -25,7 +25,6 @@ class DashboardSeeder extends Seeder
             'name' => 'DTC - 2 Weeks',
             'generation_mode' => 'azar',
             'size' => Hook::count(),
-            'is_finished' => true,
             'is_active' => true,
         ]);
 
@@ -51,16 +50,28 @@ class DashboardSeeder extends Seeder
             $item = RotationCycleItem::create([
                 'rotation_cycle_id' => $cycle->id,
                 'hook_id' => $hook->id,
-                'idea_id' => $idea?->id,
+                'idea_id' => $idea->id,
                 'position' => $index + 1,
-                'done' => true,
-                'completed_at' => $publishedAt,
                 'created_at' => $publishedAt,
                 'updated_at' => $publishedAt,
             ]);
 
-            // el metric ya se crea solo en RotationCycleItem::created()
-            $metric = $item->metric;
+            $post = $item->contentPosts()->create([
+                'title' => $idea->title ?? 'Dashboard Test Content #' . ($index + 1),
+                'type' => $profile['type'],
+                'format' => $profile['format'],
+                'caption' => null,
+                'platform' => 'instagram',
+                'published_at' => $publishedAt,
+                'hashtags' => '#marketing #branding #content',
+                'people_tagged_and_dmd' => 'creator_a, creator_b',
+                'external_post_id' => null,
+                'notes' => null,
+                'created_at' => $publishedAt,
+                'updated_at' => $publishedAt,
+            ]);
+
+            $metric = $post->metric;
 
             $metricData = $this->generateMetricData(
                 type: $profile['type'],
@@ -69,11 +80,6 @@ class DashboardSeeder extends Seeder
             );
 
             $metric->update(array_merge($metricData, [
-                'title' => $idea?->title ?? "Dashboard Test Content #" . ($index + 1),
-                'type' => $profile['type'],
-                'format' => $profile['format'],
-                'hashtags_used' => '#marketing #branding #content',
-                'people_tagged_and_dmd' => 'creator_a, creator_b',
                 'created_at' => $publishedAt,
                 'updated_at' => $publishedAt,
             ]));
@@ -83,7 +89,6 @@ class DashboardSeeder extends Seeder
     protected function buildDashboardPlan(): Collection
     {
         return collect([
-            // TOP performers
             ['type' => 'reel',     'format' => 'meme',    'quality' => 'top'],
             ['type' => 'carousel', 'format' => 'updates', 'quality' => 'top'],
             ['type' => 'reel',     'format' => 'meme',    'quality' => 'top'],
@@ -93,7 +98,6 @@ class DashboardSeeder extends Seeder
             ['type' => 'carousel', 'format' => 'updates', 'quality' => 'top'],
             ['type' => 'image',    'format' => 'meme',    'quality' => 'top'],
 
-            // STRONG
             ['type' => 'carousel', 'format' => 'updates', 'quality' => 'strong'],
             ['type' => 'reel',     'format' => 'story',   'quality' => 'strong'],
             ['type' => 'image',    'format' => 'updates', 'quality' => 'strong'],
@@ -105,7 +109,6 @@ class DashboardSeeder extends Seeder
             ['type' => 'reel',     'format' => 'meme',    'quality' => 'strong'],
             ['type' => 'image',    'format' => 'updates', 'quality' => 'strong'],
 
-            // MEDIUM
             ['type' => 'image',    'format' => 'updates', 'quality' => 'medium'],
             ['type' => 'carousel', 'format' => 'story',   'quality' => 'medium'],
             ['type' => 'reel',     'format' => 'story',   'quality' => 'medium'],
@@ -116,7 +119,6 @@ class DashboardSeeder extends Seeder
             ['type' => 'carousel', 'format' => 'updates', 'quality' => 'medium'],
             ['type' => 'reel',     'format' => 'story',   'quality' => 'medium'],
 
-            // WEAK
             ['type' => 'image',    'format' => 'story',   'quality' => 'weak'],
             ['type' => 'image',    'format' => 'updates', 'quality' => 'weak'],
             ['type' => 'carousel', 'format' => 'story',   'quality' => 'weak'],

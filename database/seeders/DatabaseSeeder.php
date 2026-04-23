@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             HookSeeder::class,
             IdeaSeeder::class,
-            // DashboardSeeder::class
+            DashboardSeeder::class
         ]);
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('content_posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rotation_cycle_item_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('rotation_cycle_item_id')->constrained()->cascadeOnDelete()->unique();
                         
             $table->string('title')->nullable();
             $table->string('type')->nullable();
