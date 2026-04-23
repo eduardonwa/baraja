@@ -19,7 +19,7 @@ class RotationCyclesTable
                     ->label('Nombre')
                     ->searchable(),
                 TextColumn::make('created_at')
-                    ->label('Creado el')
+                    ->label('Creado')
                     ->date('j M Y')
                     ->sortable(),
                 IconColumn::make('is_active')
@@ -27,34 +27,6 @@ class RotationCyclesTable
                     ->boolean()
                     ->trueColor('success')
                     ->falseColor('gray'),
-                TextColumn::make('status')
-                    ->label('Estado')
-                    ->getStateUsing(function ($record) {
-                        if ($record->items_count === 0) {
-                            return 'vacío';
-                        }
-
-                        if ($record->is_finished) {
-                            return $record->is_active
-                                ? 'terminado (activo)'
-                                : 'terminado';
-                        }
-
-                        return $record->is_active
-                            ? 'en progreso (activo)'
-                            : 'en progreso';
-                    })
-                    ->badge()
-                    ->color(function (string $state): string {
-                        return match ($state) {
-                            'vacío' => 'gray',
-                            'en progreso' => 'warning',
-                            'en progreso (activo)' => 'primary',
-                            'terminado' => 'success',
-                            'terminado (activo)' => 'info',
-                            default => 'gray',
-                        };
-                    }),
                 TextColumn::make('generation_mode')
                     ->label('Modo')
                     ->badge()

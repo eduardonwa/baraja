@@ -13,14 +13,8 @@ return new class extends Migration
     {
         Schema::create('content_metrics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rotation_cycle_item_id')->constrained()->cascadeOnDelete();
-            
-            $table->string('title')->nullable();
-            $table->string('type')->nullable();
-            $table->string('format')->nullable();
-            $table->text('people_tagged_and_dmd')->nullable();
-            $table->text('hashtags_used')->nullable();
-            
+            $table->foreignId('content_post_id')->constrained()->cascadeOnDelete()->unique();
+                        
             $table->unsignedInteger('comments_24h')->nullable();
             $table->unsignedInteger('comments_3d')->nullable();
             $table->unsignedInteger('comments_7d')->nullable();

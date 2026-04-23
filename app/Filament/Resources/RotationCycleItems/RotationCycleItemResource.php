@@ -3,8 +3,6 @@
 namespace App\Filament\Resources\RotationCycleItems;
 
 use App\Filament\Clusters\Baraja\BarajaCluster;
-use App\Filament\Resources\RotationCycleItems\Pages\CreateRotationCycleItem;
-use App\Filament\Resources\RotationCycleItems\Pages\EditRotationCycleItem;
 use App\Filament\Resources\RotationCycleItems\Pages\ListRotationCycleItems;
 use App\Filament\Resources\RotationCycleItems\Schemas\RotationCycleItemForm;
 use App\Filament\Resources\RotationCycleItems\Tables\RotationCycleItemsTable;

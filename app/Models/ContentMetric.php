@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\ContentPost;
 use App\Models\RotationCycleItem;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Builder;
 
 class ContentMetric extends Model
 {
@@ -22,9 +23,9 @@ class ContentMetric extends Model
 
     // RELATIONSHIPS
     
-    public function rotationCycleItem(): BelongsTo
+    public function contentPost(): BelongsTo
     {
-        return $this->belongsTo(RotationCycleItem::class, 'rotation_cycle_item_id');
+        return $this->belongsTo(ContentPost::class);
     }
 
     // FORMULAS

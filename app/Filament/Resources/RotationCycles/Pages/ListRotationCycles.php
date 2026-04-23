@@ -54,7 +54,6 @@ class ListRotationCycles extends ListRecords
                             $cycle->items()->create([
                                 'hook_id' => $hook->id,
                                 'position' => $index + 1,
-                                'done' => false,
                                 'idea_id' => null,
                             ]);
                         }
@@ -120,7 +119,6 @@ class ListRotationCycles extends ListRecords
                                 $cycle->items()->create([
                                     'hook_id' => $hook->id,
                                     'position' => $index + 1,
-                                    'done' => false,
                                     'idea_id' => null
                                 ]);
                             }

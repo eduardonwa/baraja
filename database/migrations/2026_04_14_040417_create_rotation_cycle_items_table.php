@@ -17,8 +17,6 @@ return new class extends Migration
             $table->foreignId('hook_id')->constrained()->cascadeOnDelete();
             $table->foreignId('idea_id')->nullable()->constrained()->cascadeOnDelete();
             $table->unsignedInteger('position');
-            $table->boolean('done')->default(false);
-            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 
             $table->unique(['rotation_cycle_id', 'position']);

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RotationCycles\RelationManagers;
 
-use App\Filament\Resources\ContentMetrics\ContentMetricResource;
+use App\Filament\Resources\ContentPosts\ContentPostResource;
 use App\Models\Idea;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -74,9 +74,7 @@ class ItemsRelationManager extends RelationManager
                             'description' => $data['description'] ?? null,
                             'hook_id' => $record->hook_id, // hook_id del registro actual
                         ])->id;
-                    }),
-                Toggle::make('done')
-                    ->label('Terminado')
+                    })
             ]);
     }
 
@@ -94,15 +92,7 @@ class ItemsRelationManager extends RelationManager
                 TextColumn::make('idea.title')
                     ->label('Idea')
                     ->placeholder('-')
-                    ->searchable(),
-                IconColumn::make('done')
-                    ->label('Estado')
-                    ->boolean()
-                    ->sortable(),
-                TextColumn::make('completed_at')
-                    ->label('Completado el')
-                    ->dateMex()
-                    ->placeholder('-'),
+                    ->searchable()
             ])
             ->headerActions([
                 //
@@ -141,12 +131,12 @@ class ItemsRelationManager extends RelationManager
                         ]);
                     })
                     ->slideOver(),
-                Action::make('editContentMetric')
-                    ->label('Editar métrica')
-                    ->icon('heroicon-o-chart-bar-square')
-                    ->url(fn ($record) => $record->metric
-                        ? ContentMetricResource::geturl('edit', ['record' => $record->metric])
-                        : null)
+                Action::make('createContentPost')
+                    ->label('Crear post')
+                    ->icon('heroicon-o-plus')
+                    ->url(fn ($record) => ContentPostResource::getUrl('create', [
+                        'rotation_cycle_item_id' => $record->id,
+                    ]))
                     ->openUrlInNewTab()
             ]);
     }
