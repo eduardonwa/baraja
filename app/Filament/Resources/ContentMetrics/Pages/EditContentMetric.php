@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ContentMetrics\Pages;
 
 use App\Filament\Resources\ContentMetrics\ContentMetricResource;
-use App\Filament\Resources\RotationCycles\RotationCycleResource;
+use App\Filament\Resources\ContentPosts\ContentPostResource;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
@@ -16,11 +16,11 @@ class EditContentMetric extends EditRecord
     {
         return [
             DeleteAction::make(),
-            Action::make('backToCycle')
-                ->label('Regresar al set')
+            Action::make('backToPost')
+                ->label('Publicación')
                 ->icon('heroicon-o-arrow-uturn-left')
-                ->url(fn () => RotationCycleResource::getUrl('edit', [
-                    'record' => $this->record->rotationCycleItem->rotation_cycle_id,
+                ->url(fn () => ContentPostResource::getUrl('edit', [
+                    'record' => $this->record->contentPost->id,
                 ])),
         ];
     }

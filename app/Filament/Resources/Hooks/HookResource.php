@@ -3,8 +3,6 @@
 namespace App\Filament\Resources\Hooks;
 
 use App\Filament\Clusters\Planeador\PlaneadorCluster;
-use App\Filament\Resources\Hooks\Pages\CreateHook;
-use App\Filament\Resources\Hooks\Pages\EditHook;
 use App\Filament\Resources\Hooks\Pages\ListHooks;
 use App\Filament\Resources\Hooks\Schemas\HookForm;
 use App\Filament\Resources\Hooks\Tables\HooksTable;
@@ -24,6 +22,8 @@ class HookResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $cluster = PlaneadorCluster::class;
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {

@@ -23,16 +23,12 @@ class ContentMetricsTable
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make('contentPost.title')
                     ->label('Título')
                     ->searchable(),
 
-                TextColumn::make('type')
-                    ->label('Tipo de publicación')
-                    ->searchable(),
-
-                TextColumn::make('format')
-                    ->label('Formato')
+                TextColumn::make('contentPost.platform')
+                    ->label('Plataforma')
                     ->searchable(),
 
                 TextColumn::make('created_at')
@@ -63,12 +59,11 @@ class ContentMetricsTable
                     ->schema([
                         Section::make()
                             ->schema([
-                                TextEntry::make('title')
+                                TextEntry::make('contentPost.title')
                                     ->label('Título')
                                     ->color('gray'),
-                                TextEntry::make('type')
-                                    ->label('Tipo')
-                                    ->color('gray'),
+                                TextEntry::make('contentPost.platform')
+                                    ->label('Plataforma'),
                                 TextEntry::make('created_at')
                                     ->label('Fecha de creación')
                                     ->color('gray')

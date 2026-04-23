@@ -9,11 +9,9 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -132,11 +130,23 @@ class ItemsRelationManager extends RelationManager
                     })
                     ->slideOver(),
                 Action::make('createContentPost')
-                    ->label('Crear post')
-                    ->icon('heroicon-o-plus')
-                    ->url(fn ($record) => ContentPostResource::getUrl('create', [
-                        'rotation_cycle_item_id' => $record->id,
-                    ]))
+                    ->label(fn ($record) => $record->contentPosts()->exists()
+                        ? 'Ver post'
+                        : 'Crear post'
+                    )
+                    ->icon(fn ($record) => $record->contentPosts()->exists()
+                        ? 'heroicon-o-eye'
+                        : 'heroicon-o-plus'
+                    )
+                    ->url(function ($record) {
+                        $post = $record->contentPosts()->first();
+
+                        return $post
+                            ? ContentPostResource::getUrl('edit', ['record' => $post])
+                            : ContentPostResource::getUrl('create', [
+                                'rotation_cycle_item_id' => $record->id
+                            ]);
+                    })
                     ->openUrlInNewTab()
             ]);
     }

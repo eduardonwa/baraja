@@ -10,6 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ContentPost extends Model
 {
+    protected static function booted(): void
+    {
+        static::created(function (ContentPost $post) {
+            $post->metric()->create();
+        });
+    }
+
     public function rotationCycleItem(): BelongsTo
     {
         return $this->belongsTo(RotationCycleItem::class);

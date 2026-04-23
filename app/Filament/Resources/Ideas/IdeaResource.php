@@ -3,8 +3,6 @@
 namespace App\Filament\Resources\Ideas;
 
 use App\Filament\Clusters\Planeador\PlaneadorCluster;
-use App\Filament\Resources\Ideas\Pages\CreateIdea;
-use App\Filament\Resources\Ideas\Pages\EditIdea;
 use App\Filament\Resources\Ideas\Pages\ListIdeas;
 use App\Filament\Resources\Ideas\Schemas\IdeaForm;
 use App\Filament\Resources\Ideas\Tables\IdeasTable;
@@ -24,6 +22,8 @@ class IdeaResource extends Resource
     protected static ?string $recordTitleAttribute = 'title';
 
     protected static ?string $cluster = PlaneadorCluster::class;
+    
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

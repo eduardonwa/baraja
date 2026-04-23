@@ -3,13 +3,13 @@
 namespace App\Filament\Resources\ContentMetrics\Schemas;
 
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
+use Illuminate\Support\HtmlString;
 
 class ContentMetricForm
 {
@@ -17,41 +17,22 @@ class ContentMetricForm
     {
         return $schema
             ->components([
-                Section::make('Publicación')
-                    ->schema([
-                        TextInput::make('title')
-                            ->label('Título'),
-
-                        Select::make('type')
-                            ->label('Tipo')
-                            ->options([
-                                'image' => 'Imagen',
-                                'reel' => 'Reel',
-                                'carousel' => 'Carrusel',
-                            ]),
-
-                        Select::make('format')
-                            ->options([
-                                'meme' => 'Meme',
-                                'updates' => 'Noticias',
-                                'story' => 'Story',
-                            ]),
-
-                        Textarea::make('hashtags_used')
-                            ->label('Etiquetas')
-                            ->columnSpanFull(),
-
-                        Textarea::make('people_tagged_and_dmd')
-                            ->label('Cuentas etiquetadas y contactadas')
-                            ->columnSpanFull(),
+                TextEntry::make('Señales del contenido')
+                    ->state(new HtmlString('
+                        <div class="text-sm text-gray-400">
+                            Mide el impacto, validación y rendimiento de tu publicación.
+                        </div>
+                    ')),
+                    
+                Tabs::make('MetricsTabs')
+                    ->extraAttributes([
+                        'class' => 'metrics-tabs',
                     ])
-                    ->columns(2),
-
-                Section::make('Registro de métricas')
-                    ->schema([
-                        Tabs::make('MetricsTabs')
-                            ->tabs([
-                                Tab::make('Impacto inicial (24h)')
+                    ->tabs([
+                        Tab::make('Impacto inicial (24h)')
+                            ->schema([
+                                Section::make('Conversiones')
+                                    ->description('Mide alcance y acciones reales')
                                     ->schema([
                                         TextInput::make('views_24h')
                                             ->label('Vistas')
@@ -61,7 +42,12 @@ class ContentMetricForm
                                             ->numeric(),
                                         TextInput::make('follows_24h')
                                             ->label('Nuevos seguidores')
-                                            ->numeric(),
+                                            ->numeric()
+                                    ])
+                                    ->contained(false),
+                                Section::make('Interacciones')
+                                    ->description('Mide respuesta social del contenido')
+                                    ->schema([
                                         TextInput::make('likes_24h')
                                             ->label('Me gusta')
                                             ->numeric(),
@@ -78,9 +64,14 @@ class ContentMetricForm
                                             ->label('Reposts')
                                             ->numeric(),
                                     ])
-                                    ->columns(2),
+                                    ->contained(false),
+                            ])
+                            ->columns(2),
 
-                                Tab::make('Fase de validación (3d)')
+                        Tab::make('Fase de validación (3d)')
+                            ->schema([
+                                Section::make('Conversiones')
+                                    ->description('Mide alcance y acciones reales')
                                     ->schema([
                                         TextInput::make('views_3d')
                                             ->label('Vistas')
@@ -90,7 +81,12 @@ class ContentMetricForm
                                             ->numeric(),
                                         TextInput::make('follows_3d')
                                             ->label('Nuevos seguidores')
-                                            ->numeric(),
+                                            ->numeric()
+                                    ])
+                                    ->contained(false),
+                                Section::make('Interacciones')
+                                    ->description('Mide respuesta social del contenido')
+                                    ->schema([
                                         TextInput::make('likes_3d')
                                             ->label('Me gusta')
                                             ->numeric(),
@@ -107,9 +103,14 @@ class ContentMetricForm
                                             ->label('Reposts')
                                             ->numeric(),
                                     ])
-                                    ->columns(2),
+                                    ->contained(false),
+                            ])
+                            ->columns(2),
 
-                                Tab::make('Rendimiento final (7d)')
+                        Tab::make('Rendimiento final (7d)')
+                            ->schema([
+                                Section::make('Conversiones')
+                                    ->description('Mide alcance y acciones reales')
                                     ->schema([
                                         TextInput::make('views_7d')
                                             ->label('Vistas')
@@ -119,7 +120,12 @@ class ContentMetricForm
                                             ->numeric(),
                                         TextInput::make('follows_7d')
                                             ->label('Nuevos seguidores')
-                                            ->numeric(),
+                                            ->numeric()
+                                    ])
+                                    ->contained(false),
+                                Section::make('Interacciones')
+                                    ->description('Mide respuesta social del contenido')
+                                    ->schema([
                                         TextInput::make('likes_7d')
                                             ->label('Me gusta')
                                             ->numeric(),
@@ -136,13 +142,14 @@ class ContentMetricForm
                                             ->label('Reposts')
                                             ->numeric(),
                                     ])
-                                    ->columns(2),
+                                    ->contained(false),
                             ])
-                            ->columnSpanFull(),
-                    ]),
+                            ->columns(2),
+                    ])
+                    ->columnSpanFull(),
 
-                Select::make('rotation_cycle_item_id')
-                    ->relationship('rotationCycleItem', 'id')
+                Select::make('content_post')
+                    ->relationship('contentPost', 'id')
                     ->required()
                     ->hidden(),
             ]);

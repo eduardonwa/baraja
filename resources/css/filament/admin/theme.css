@@ -21,7 +21,7 @@
     color: whitesmoke;
 }
 
-/*  ajustes parrafo:
+/*  ajustes para parrafo:
     - en moviles el text "lead" se situa en su propia línea. en escritorio, al lado de la descripcion.
     - colores del estado
 */
@@ -130,4 +130,10 @@
     .performance-summary {
         flex-direction: row;
     }
+}
+
+/* ContentMetricsForm */
+.metrics-tabs .fi-tabs {
+    justify-content: center;
+    gap: 1.4rem;
 }

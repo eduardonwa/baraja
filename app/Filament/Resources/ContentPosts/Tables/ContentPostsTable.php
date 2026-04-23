@@ -14,21 +14,18 @@ class ContentPostsTable
     {
         return $table
             ->columns([
-                TextColumn::make('rotationCycleItem.id')
-                    ->searchable(),
                 TextColumn::make('title')
+                    ->label('Título')
                     ->searchable(),
                 TextColumn::make('type')
-                    ->searchable(),
-                TextColumn::make('format')
+                    ->label('Tipo publicación')
                     ->searchable(),
                 TextColumn::make('platform')
                     ->searchable(),
                 TextColumn::make('published_at')
+                    ->label('Publicado')
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('external_post_id')
-                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ContentPosts;
 
+use App\Filament\Clusters\Planeador\PlaneadorCluster;
 use App\Filament\Resources\ContentPosts\Pages\CreateContentPost;
 use App\Filament\Resources\ContentPosts\Pages\EditContentPost;
 use App\Filament\Resources\ContentPosts\Pages\ListContentPosts;
@@ -21,6 +22,12 @@ class ContentPostResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    protected static ?string $navigationLabel = 'Contenido';
+
+    protected static ?string $cluster = PlaneadorCluster::class;
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {
