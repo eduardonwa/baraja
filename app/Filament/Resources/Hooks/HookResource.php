@@ -23,7 +23,7 @@ class HookResource extends Resource
 
     protected static ?string $cluster = PlaneadorCluster::class;
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

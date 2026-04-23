@@ -24,7 +24,7 @@ class ContentMetricsTable
         return $table
             ->columns([
                 TextColumn::make('contentPost.title')
-                    ->label('Título')
+                    ->label('Publicación')
                     ->searchable(),
 
                 TextColumn::make('contentPost.platform')

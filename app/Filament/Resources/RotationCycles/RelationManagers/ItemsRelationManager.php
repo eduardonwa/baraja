@@ -129,17 +129,17 @@ class ItemsRelationManager extends RelationManager
                         ]);
                     })
                     ->slideOver(),
-                Action::make('createContentPost')
+                Action::make('contentPost')
                     ->label(fn ($record) => $record->contentPosts()->exists()
-                        ? 'Ver post'
-                        : 'Crear post'
+                        ? 'Ver publicación'
+                        : 'Registrar publicación'
                     )
                     ->icon(fn ($record) => $record->contentPosts()->exists()
                         ? 'heroicon-o-eye'
                         : 'heroicon-o-plus'
                     )
                     ->url(function ($record) {
-                        $post = $record->contentPosts()->first();
+                        $post = $record->contentPosts;
 
                         return $post
                             ? ContentPostResource::getUrl('edit', ['record' => $post])

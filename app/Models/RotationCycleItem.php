@@ -7,7 +7,7 @@ use App\Models\Idea;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Validation\ValidationException;
 
 class RotationCycleItem extends Model
@@ -46,9 +46,9 @@ class RotationCycleItem extends Model
         return $this->belongsTo(Idea::class, 'idea_id');
     }
 
-    public function contentPosts(): HasMany
+    public function contentPosts(): HasOne
     {
-        return $this->hasMany(ContentPost::class);
+        return $this->hasOne(ContentPost::class);
     }
 
     public function getDisplayNameAttribute(): string

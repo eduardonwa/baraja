@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\ContentMetrics\Schemas;
 
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
@@ -17,10 +17,16 @@ class ContentMetricForm
     {
         return $schema
             ->components([
-                TextEntry::make('Señales del contenido')
-                    ->state(new HtmlString('
-                        <div class="text-sm text-gray-400">
-                            Mide el impacto, validación y rendimiento de tu publicación.
+                TextEntry::make('post_header')
+                    ->hiddenLabel()
+                    ->state(fn ($record) => new HtmlString('
+                        <div class="space-y-1">
+                            <div class="text-base font-medium text-white">
+                                ' . e($record->contentPost?->title ?? 'Publicación') . '
+                            </div>
+                            <div class="text-sm text-gray-400">
+                                Mide el impacto, validación y rendimiento de tu publicación.
+                            </div>
                         </div>
                     ')),
                     
@@ -148,10 +154,7 @@ class ContentMetricForm
                     ])
                     ->columnSpanFull(),
 
-                Select::make('content_post')
-                    ->relationship('contentPost', 'id')
-                    ->required()
-                    ->hidden(),
+                Hidden::make('content_post_id')->required(),
             ]);
     }
 }
