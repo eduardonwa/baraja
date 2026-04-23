@@ -22,7 +22,7 @@ class ContentMetricForm
                     ->state(fn ($record) => new HtmlString('
                         <div class="space-y-1">
                             <div class="text-base font-medium text-white">
-                                ' . e($record->contentPost?->title ?? 'Publicación') . '
+                                ' . e($record->metricable?->title ?? 'Publicación') . '
                             </div>
                             <div class="text-sm text-gray-400">
                                 Mide el impacto, validación y rendimiento de tu publicación.
@@ -152,9 +152,7 @@ class ContentMetricForm
                             ])
                             ->columns(2),
                     ])
-                    ->columnSpanFull(),
-
-                Hidden::make('content_post_id')->required(),
+                    ->columnSpanFull()                
             ]);
     }
 }

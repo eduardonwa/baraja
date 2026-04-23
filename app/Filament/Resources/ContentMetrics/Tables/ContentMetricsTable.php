@@ -13,7 +13,6 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
-use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -23,11 +22,11 @@ class ContentMetricsTable
     {
         return $table
             ->columns([
-                TextColumn::make('contentPost.title')
+                TextColumn::make('metricable.title')
                     ->label('Publicación')
                     ->searchable(),
 
-                TextColumn::make('contentPost.platform')
+                TextColumn::make('metricable.platform')
                     ->label('Plataforma')
                     ->searchable(),
 
@@ -59,11 +58,12 @@ class ContentMetricsTable
                     ->schema([
                         Section::make()
                             ->schema([
-                                TextEntry::make('contentPost.title')
+                                TextEntry::make('metricable.title')
                                     ->label('Título')
                                     ->color('gray'),
-                                TextEntry::make('contentPost.platform')
-                                    ->label('Plataforma'),
+                                TextEntry::make('metricable.platform')
+                                    ->label('Plataforma')
+                                    ->color('gray'),
                                 TextEntry::make('created_at')
                                     ->label('Fecha de creación')
                                     ->color('gray')

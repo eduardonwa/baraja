@@ -20,7 +20,7 @@ class EditContentMetric extends EditRecord
                 ->label('Publicación')
                 ->icon('heroicon-o-arrow-uturn-left')
                 ->url(fn () => ContentPostResource::getUrl('edit', [
-                    'record' => $this->record->contentPost->id,
+                    'record' => $this->record->metricable->id,
                 ])),
         ];
     }

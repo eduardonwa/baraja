@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('content_metrics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('content_post_id')->constrained()->cascadeOnDelete()->unique();
-                        
+
+            $table->morphs('metricable');
+            $table->unique(['metricable_type', 'metricable_id'], 'metricable_unique');
+
             $table->unsignedInteger('comments_24h')->nullable();
             $table->unsignedInteger('comments_3d')->nullable();
             $table->unsignedInteger('comments_7d')->nullable();

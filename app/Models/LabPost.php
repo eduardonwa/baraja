@@ -3,24 +3,24 @@
 namespace App\Models;
 
 use App\Models\ContentMetric;
-use App\Models\RotationCycleItem;
+use App\Models\HypothesisTest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class ContentPost extends Model
+class LabPost extends Model
 {
+
     protected static function booted(): void
     {
-        static::created(function (ContentPost $post) {
+        static::created(function (LabPost $post) {
             $post->metric()->create();
         });
     }
 
-    public function rotationCycleItem(): BelongsTo
+    public function hypothesisTest(): BelongsTo
     {
-        return $this->belongsTo(RotationCycleItem::class);
+        return $this->belongsTo(HypothesisTest::class);
     }
 
     public function metric(): MorphOne

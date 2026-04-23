@@ -16,7 +16,7 @@ class PerformanceSummary extends Widget
     {
         $posts = ContentMetric::query()
             ->withEngagementData()
-            ->with('contentPost')
+            ->with('metricable')
             ->get();
 
         $posts = $posts->map(function ($post) {
