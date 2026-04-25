@@ -22,8 +22,10 @@ return new class extends Migration
                 'format',
                 'caption',
                 'combination',
-                'distribution'
+                'distribution',
+                'text_in_image'
             ]);
+            
             $table->text('change_description');
 
             $table->enum('result', [
@@ -36,6 +38,8 @@ return new class extends Migration
             $table->text('observations')->nullable();
 
             $table->timestamps();
+
+            $table->index(['hypothesis_id', 'result']);
         });
     }
 

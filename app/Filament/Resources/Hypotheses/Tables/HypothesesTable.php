@@ -1,32 +1,39 @@
 <?php
 
-namespace App\Filament\Resources\ContentPosts\Tables;
+namespace App\Filament\Resources\Hypotheses\Tables;
 
-use App\Filament\Resources\ContentMetrics\ContentMetricResource;
-use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class ContentPostsTable
+class HypothesesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
+                TextColumn::make('sourceContentPost.title')
+                    ->label('Publicación')
+                    ->searchable(),
                 TextColumn::make('title')
                     ->label('Título')
                     ->searchable(),
-                TextColumn::make('type')
-                    ->label('Tipo de publicación')
-                    ->searchable(),
-                TextColumn::make('platform')
-                    ->label('Plataforma')
-                    ->searchable(),
-                TextColumn::make('published_at')
-                    ->label('Publicado')
-                    ->dateTime()
+                TextColumn::make('variable_label')
+                    ->label('Variable')
+                    ->badge(),
+                TextColumn::make('status')
+                    ->badge(),
+                TextColumn::make('confidence_score')
+                    ->label('Nivel de confianza')
+                    ->formatStateUsing(fn ($state) => "{$state}%")
+                    ->suffix('%')
+                    ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Creado')
@@ -40,23 +47,17 @@ class ContentPostsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                TrashedFilter::make(),
             ])
             ->recordActions([
-                Action::make('viewMetrics')
-                    ->label('Ver métricas')
-                    ->icon('heroicon-o-chart-bar')
-                    ->url(fn ($record) => $record->metric
-                        ? ContentMetricResource::getUrl('edit', [
-                            'record' => $record->metric,
-                        ])
-                        : null
-                    )
-                    ->visible(fn ($record) => $record->metric !== null),
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }

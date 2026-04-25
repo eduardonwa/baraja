@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\HypothesisTest;
+use App\Observers\HypothesisTestObserver;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
 
         Carbon::setLocale('es');
+
+        HypothesisTest::observe(HypothesisTestObserver::class);
     }
 
     /**
@@ -54,12 +58,12 @@ class AppServiceProvider extends ServiceProvider
             : null,
         );
 
-        TextColumn::macro('dateMex', function () {
-            return $this->formatStateUsing(fn ($state) =>
-                $state
-                    ? Carbon::parse($state)->translatedFormat('j \d\e F \d\e Y')
-                    : null
-            );
+        DateTimePicker::macro('dateMex', function () {
+            return $this
+                ->hint('DD/MM/AAAA')
+                ->native(false)
+                ->displayFormat('d / m / Y — h:i A')
+                ->seconds(false);
         });
     }
 }

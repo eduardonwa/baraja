@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\ContentPosts\Pages;
 
+use App\Filament\Resources\ContentMetrics\ContentMetricResource;
 use App\Filament\Resources\ContentPosts\ContentPostResource;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
@@ -14,6 +16,16 @@ class EditContentPost extends EditRecord
     {
         return [
             DeleteAction::make(),
+            Action::make('viewMetrics')
+                ->label('Ver métricas')
+                ->icon('heroicon-o-chart-bar')
+                ->url(fn () => $this->record?->metric
+                    ? ContentMetricResource::getUrl('edit', [
+                        'record' => $this->record->metric,
+                    ])
+                    : null
+                )
+                ->visible(fn () => $this->record?->metric !== null),
         ];
     }
 }

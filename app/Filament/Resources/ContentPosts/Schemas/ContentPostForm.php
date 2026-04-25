@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ContentPosts\Schemas;
 
 use App\Filament\Resources\RotationCycles\RotationCycleResource;
+use Carbon\Carbon;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Textarea;
@@ -30,7 +31,7 @@ class ContentPostForm
                         }
 
                         return new HtmlString(sprintf(
-                            '<a href="%s" class="text-primary-600 underline">#%s %s</a>',
+                            '<a href="%s" target="_blank" rel="noopener noreferrer" class="text-primary-600 underline">#%s %s</a>',
                             \App\Filament\Resources\RotationCycles\RotationCycleResource::getUrl('edit', [
                                 'record' => $item->cycle,
                             ]),
@@ -38,20 +39,28 @@ class ContentPostForm
                             e($item->hook?->name ?? '-')
                         ));
                     }),
-                TextInput::make('title'),
-                TextInput::make('type'),
-                TextInput::make('format'),
+                TextInput::make('title')
+                    ->label('Título'),
+                TextInput::make('type')
+                    ->label('Tipo de publicación'),
+                TextInput::make('format')
+                    ->label('Formato'),
                 Textarea::make('caption')
                     ->columnSpanFull(),
                 TextInput::make('platform')
+                    ->label('Plataforma')
                     ->required(),
-                DateTimePicker::make('published_at'),
+                DateTimePicker::make('published_at')
+                    ->label('Publicado')
+                    ->dateMex(),
                 Textarea::make('hashtags')
                     ->columnSpanFull(),
                 Textarea::make('people_tagged_and_dmd')
+                    ->label('Personas etiquetadas y dmd')
                     ->columnSpanFull(),
                 TextInput::make('external_post_id'),
                 Textarea::make('notes')
+                    ->label('Notas')
                     ->columnSpanFull(),
             ]);
     }

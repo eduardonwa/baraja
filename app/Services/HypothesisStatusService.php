@@ -6,46 +6,68 @@ use App\Models\Hypothesis;
 
 class HypothesisStatusService
 {
-    public function determineStatus(int $positive, int $failed, bool $hasTests): string
+    public function determineStatus(float $confidence, int $positive, int $failed, bool $hasTests): string
     {
-        if ($failed >= 2) {
-            return 'discarded';
-        }
+        return match (true) {
+            ! $hasTests => 'observing',
 
-        if ($positive >= 3) {
-            return 'reliable';
-        }
+            $confidence < 30 => 'discarded',
+            $confidence < 55 => 'testing',
+            $confidence < 70 => 'promising',
+            $confidence < 85 => 'reliable',
 
-        if ($positive >= 2) {
-            return 'promising';
-        }
-
-        if ($hasTests) {
-            return 'testing';
-        }
-
-        return 'observing';
+            default => 'reliable'
+        };
     }
 
     public function update(Hypothesis $hypothesis): void
     {
-        $positive = $hypothesis->tests()
+        $tests = $hypothesis->tests()->get();
+
+        $positive = $tests
             ->where('result', 'confirmed')
             ->count();
 
-        $failed = $hypothesis->tests()
+        $failed = $tests
             ->where('result', 'rejected')
             ->count();
 
+        $positiveAvg = $tests
+            ->where('result', 'confirmed')
+            ->avg('signal_strength') ?? 0;
+
+        $failedAvg = $tests
+            ->where('result', 'rejected')
+            ->avg('signal_strength') ?? 0;
+
+        $totalTests = $tests->count();
+
+        /*
+         * Radio tuning model:
+         * 50 = neutral / no clear signal
+         * confirmed tests push confidence up
+         * rejected tests push confidence down
+         * volume factor prevents overconfidence with too few tests
+        */
+        $rawConfidence = 50 + (($positiveAvg - $failedAvg) / 2);
+
+        $volumeFactor = min($totalTests / 5, 1);
+
+        $confidence = 50 + (($rawConfidence - 50) * $volumeFactor);
+
+        $confidence = round(max(0, min(100, $confidence)));
+
         $status = $this->determineStatus(
+            $confidence,
             $positive,
             $failed,
-            $hypothesis->tests()->exists()
+            $totalTests > 0
         );
 
         $hypothesis->updateQuietly([
             'positive_signals_count' => $positive,
             'failed_tests_count' => $failed,
+            'confidence_score' => $confidence,
             'status' => $status,
         ]);
     }

@@ -23,7 +23,8 @@ return new class extends Migration
                 'format',
                 'caption',
                 'combination',
-                'distribution'
+                'distribution',
+                'text_in_image',
             ]);
             $table->enum('status', [
                 'observing',
@@ -38,6 +39,10 @@ return new class extends Migration
             $table->text('notes')->nullable();
 
             $table->timestamps();
+
+            $table->index(['status', 'variable']);
+
+            $table->softDeletes();
         });
     }
 
