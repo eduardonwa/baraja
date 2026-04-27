@@ -3,12 +3,15 @@
 namespace App\Filament\Resources\Hypotheses\RelationManagers;
 
 use App\Models\Hypothesis;
+use App\Models\HypothesisTest;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -100,6 +103,42 @@ class TestsRelationManager extends RelationManager
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
+                Action::make('registerLabPost')
+                    ->label(fn ($record) => $record->labPost()->exists()
+                        ? 'Ver publicación'
+                        : 'Registrar publicación'
+                    )
+                    ->icon(fn ($record) => $record->labPost()->exists()
+                        ? 'heroicon-o-eye'
+                        : 'heroicon-o-plus'
+                    )
+                    ->fillForm(function (HypothesisTest $record): array {
+                        $labPost = $record->labPost;
+
+                        return $labPost ? [
+                            'title' => $labPost->title,
+                            'caption' => $labPost->caption,
+                            'platform' => $labPost->platform,
+                            'published_at' => $labPost->published_at,
+                            'notes' => $labPost->notes,
+                        ] : [];
+                    })
+                    ->schema([
+                        TextInput::make('title')
+                            ->label('Título'),
+                        Textarea::make('caption')
+                            ->label('Descripción'),
+                        TextInput::make('platform')
+                            ->label('Plataforma'),
+                        DateTimePicker::make('published_at')
+                            ->label('Publicado')
+                            ->dateMex(),
+                        Textarea::make('notes')
+                            ->label('Notas')
+                    ])
+                    ->action(function (HypothesisTest $record, array $data) {
+                        $record->labPost()->create($data);
+                    })
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Hypotheses\Schemas;
 
+use App\Models\Hypothesis;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -25,9 +26,11 @@ class HypothesisForm
                     ->label('Observación')
                     ->columnSpanFull(),
 
-                TextEntry::make('variable_label')
-                    ->label('Variable')
-                    ->color('gray'),
+                Select::make('variable')
+                    ->options(Hypothesis::VARIABLE_LABELS)
+                    ->required()
+                    ->disabled(fn (string $operation): bool => $operation === 'edit')
+                    ->dehydrated(),
                     
                 Select::make('status')
                     ->options([
@@ -49,7 +52,7 @@ class HypothesisForm
 
                 TextEntry::make('confidence_score')
                     ->label('Nivel de confianza')
-                    ->state(fn ($record) => $record->fresh()->confidence_score ?? 0)
+                    ->state(fn ($record) => $record?->fresh()?->confidence_score ?? 0)
                     ->formatStateUsing(fn ($state) => "{$state}%")
                     ->color('gray')
                     ->numeric()
@@ -61,6 +64,8 @@ class HypothesisForm
                     ->columnSpanFull(),
 
                 Hidden::make('source_content_post_id')
+                    ->default(fn () => request()->query('source_content_post_id'))
+                    ->dehydrated()
             ]);
     }
 }

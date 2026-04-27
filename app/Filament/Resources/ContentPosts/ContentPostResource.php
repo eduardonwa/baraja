@@ -6,6 +6,7 @@ use App\Filament\Clusters\Planeador\PlaneadorCluster;
 use App\Filament\Resources\ContentPosts\Pages\CreateContentPost;
 use App\Filament\Resources\ContentPosts\Pages\EditContentPost;
 use App\Filament\Resources\ContentPosts\Pages\ListContentPosts;
+use App\Filament\Resources\ContentPosts\RelationManagers\HypothesesRelationManager;
 use App\Filament\Resources\ContentPosts\Schemas\ContentPostForm;
 use App\Filament\Resources\ContentPosts\Tables\ContentPostsTable;
 use App\Models\ContentPost;
@@ -44,7 +45,7 @@ class ContentPostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            HypothesesRelationManager::class
         ];
     }
 
