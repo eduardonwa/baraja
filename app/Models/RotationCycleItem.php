@@ -46,7 +46,7 @@ class RotationCycleItem extends Model
         return $this->belongsTo(Idea::class, 'idea_id');
     }
 
-    public function contentPosts(): HasOne
+    public function contentPost(): HasOne
     {
         return $this->hasOne(ContentPost::class);
     }

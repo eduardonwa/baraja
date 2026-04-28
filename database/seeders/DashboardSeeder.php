@@ -56,7 +56,7 @@ class DashboardSeeder extends Seeder
                 'updated_at' => $publishedAt,
             ]);
 
-            $post = $item->contentPosts()->create([
+            $post = $item->contentPost()->create([
                 'title' => $idea->title ?? 'Dashboard Test Content #' . ($index + 1),
                 'type' => $profile['type'],
                 'format' => $profile['format'],
