@@ -25,19 +25,16 @@ class HypothesisForm
                 Textarea::make('insight')
                     ->label('Observación')
                     ->columnSpanFull(),
-
                 Select::make('variable')
                     ->options(Hypothesis::VARIABLE_LABELS)
                     ->disabled(fn (string $operation): bool => $operation === 'edit')
                     ->dehydrated()
                     ->live()
                     ->required(),
-
                 TextInput::make('variable_custom')
                     ->label('Especifica la variable')
                     ->visible(fn ($get) => $get('variable') === 'other')
                     ->required(fn ($get) => $get('variable') === 'other'),
-                    
                 Select::make('status')
                     ->options([
                         'observing' => 'Observando',
@@ -48,14 +45,12 @@ class HypothesisForm
                     ])
                     ->default('observing')
                     ->required(),
-
                 TextEntry::make('positive_signals_count')
                     ->label('Señales positivas')
                     ->color('gray'),
                 TextEntry::make('failed_tests_count')
                     ->label('Señales negativas')
                     ->color('gray'),
-
                 TextEntry::make('confidence_score')
                     ->label('Nivel de confianza')
                     ->state(fn ($record) => $record?->fresh()?->confidence_score ?? 0)
@@ -64,11 +59,9 @@ class HypothesisForm
                     ->numeric()
                     ->suffix('%')
                     ->helperText('Se calcula automáticamente segun la señal de los tests'),
-
                 Textarea::make('notes')
                     ->label('Notas')
                     ->columnSpanFull(),
-
                 Hidden::make('source_content_post_id')
                     ->default(fn () => request()->query('source_content_post_id'))
                     ->dehydrated()

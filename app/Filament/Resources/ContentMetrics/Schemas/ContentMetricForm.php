@@ -2,7 +2,8 @@
 
 namespace App\Filament\Resources\ContentMetrics\Schemas;
 
-use Filament\Forms\Components\Hidden;
+use App\Models\ContentPost;
+use App\Models\LabPost;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
@@ -19,16 +20,32 @@ class ContentMetricForm
             ->components([
                 TextEntry::make('post_header')
                     ->hiddenLabel()
-                    ->state(fn ($record) => new HtmlString('
-                        <div class="space-y-1">
-                            <div class="text-base font-medium text-white">
-                                ' . e($record->metricable?->title ?? 'Publicación') . '
+                    ->state(function ($record) {
+                        $metricable = $record->metricable;
+
+                        $title = match (true) {
+                            $metricable instanceof ContentPost => $metricable->title ?? 'Publicación',
+                            $metricable instanceof LabPost => $metricable->variable_variant ?? 'Lab post',
+                            default => 'Publicación',
+                        };
+
+                        $description = match (true) {
+                            $metricable instanceof ContentPost => 'Mide el impacto, validación y rendimiento de tu publicación.',
+                            $metricable instanceof LabPost => 'Mide el resultado del experimento y la fuerza de esta variación.',
+                            default => 'Mide el impacto, validación y rendimiento.',
+                        };
+
+                        return new HtmlString('
+                            <div class="space-y-1">
+                                <div class="text-base font-medium text-white">
+                                    ' . e($title) . '
+                                </div>
+                                <div class="text-sm" style="color: var(--gray-400);">
+                                    ' . e($description) . '
+                                </div>
                             </div>
-                            <div class="text-sm text-gray-400">
-                                Mide el impacto, validación y rendimiento de tu publicación.
-                            </div>
-                        </div>
-                    ')),
+                        ');
+                    }),
                     
                 Tabs::make('MetricsTabs')
                     ->extraAttributes([

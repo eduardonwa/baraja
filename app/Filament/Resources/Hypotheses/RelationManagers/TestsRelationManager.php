@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Hypotheses\RelationManagers;
 
+use App\Filament\Resources\ContentMetrics\ContentMetricResource;
 use App\Models\Hypothesis;
 use App\Models\HypothesisTest;
 use Filament\Actions\Action;
@@ -13,7 +14,6 @@ use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -34,18 +34,17 @@ class TestsRelationManager extends RelationManager
     {
         return $schema
             ->components([
-            Textarea::make('change_description')
-                ->label(function ($livewire) {
-                    $variable = $livewire->ownerRecord->variable === 'other'
-                        ? $livewire->ownerRecord->variable_custom
-                        : Hypothesis::VARIABLE_LABELS[$livewire->ownerRecord->variable];
+                Textarea::make('change_description')
+                    ->label(function ($livewire) {
+                        $variable = $livewire->ownerRecord->variable === 'other'
+                            ? $livewire->ownerRecord->variable_custom
+                            : Hypothesis::VARIABLE_LABELS[$livewire->ownerRecord->variable];
 
-                    return "Variación de {$variable}";
-                })
-                ->required()
-                ->columnSpanFull()
-                ->helperText('Describe cómo cambiaste esta variable.'),
-
+                        return "Variación de {$variable}";
+                    })
+                    ->required()
+                    ->columnSpanFull()
+                    ->helperText('Describe cómo cambiaste esta variable.'),
                 Select::make('result')
                     ->label('Resultado')
                     ->options([
@@ -175,6 +174,25 @@ class TestsRelationManager extends RelationManager
                             ])
                             ->columnSpanFull(),
                     ])
+                    ->modalFooterActions(function (Action $action) {
+                        return [
+                            $action->getModalSubmitAction(),
+                            $action->getModalCancelAction(),
+
+                            Action::make('viewMetrics')
+                                ->label('Ver métricas')
+                                ->icon('heroicon-o-chart-bar')
+                                ->color('gray')
+                                ->visible(fn ($record) => $record->labPost?->metric !== null)
+                                ->url(fn ($record) => ContentMetricResource::getUrl('edit', [
+                                    'record' => $record->labPost->metric,
+                                ]))
+                                ->extraAttributes([
+                                    'style' => 'margin-left: auto !important;',
+                                ]),
+
+                        ];
+                    })
                     ->action(function (HypothesisTest $record, array $data) {
                         $record->labPost()->updateOrCreate(
                             ['hypothesis_test_id' => $record->id],

@@ -41,7 +41,7 @@ class ItemsRelationManager extends RelationManager
                         }
                         return Idea::query()
                             ->where('hook_id', $record->hook_id)
-                            ->orderBy('title')
+                            ->orderBy('title', 'asc')
                             ->pluck('title', 'id')
                             ->toArray();
                     })

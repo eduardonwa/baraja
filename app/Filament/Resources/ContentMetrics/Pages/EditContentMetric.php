@@ -4,6 +4,9 @@ namespace App\Filament\Resources\ContentMetrics\Pages;
 
 use App\Filament\Resources\ContentMetrics\ContentMetricResource;
 use App\Filament\Resources\ContentPosts\ContentPostResource;
+use App\Filament\Resources\Hypotheses\HypothesisResource;
+use App\Models\ContentPost;
+use App\Models\LabPost;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
@@ -19,9 +22,23 @@ class EditContentMetric extends EditRecord
             Action::make('backToPost')
                 ->label('Publicación')
                 ->icon('heroicon-o-arrow-uturn-left')
-                ->url(fn () => ContentPostResource::getUrl('edit', [
-                    'record' => $this->record->metricable->id,
-                ]))
+                ->url(function () {
+                    $metricable = $this->record->metricable;
+
+                    if ($metricable instanceof ContentPost) {
+                        return ContentPostResource::getUrl('edit', [
+                            'record' => $metricable->id,
+                        ]);
+                    }
+
+                    if ($metricable instanceof LabPost) {
+                        return HypothesisResource::getUrl('edit', [
+                            'record' => $metricable->hypothesisTest->hypothesis_id
+                        ]);
+                    }
+
+                    return null;
+                })
         ];
     }
 }
