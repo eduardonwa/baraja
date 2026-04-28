@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\ContentMetrics\Tables;
 
 use App\Filament\Resources\ContentMetrics\ContentMetricResource;
+use App\Models\ContentPost;
+use App\Models\LabPost;
 use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -22,14 +24,43 @@ class ContentMetricsTable
     {
         return $table
             ->columns([
-                TextColumn::make('metricable.title')
+                TextColumn::make('metricable_title')
                     ->label('Publicación')
-                    ->searchable(),
+                    ->searchable(query: function ($query, $search) {
+                        $query->whereHasMorph(
+                            'metricable',
+                            [ContentPost::class, LabPost::class],
+                            function ($q) use ($search) {
+                                $q->where(function ($sub) use ($search) {
+                                    $sub->where('title', 'like', "%{$search}%")
+                                        ->orWhere('variable_variant', 'like', "%{$search}%");
+                                });
+                            }
+                        );
+                    })
+                    ->state(fn ($record) => match (true) {
+                        $record->metricable instanceof ContentPost => $record->metricable->title,
+                        $record->metricable instanceof LabPost => $record->metricable->variable_variant ?? $record->metricable->caption,
+                        default => '-',
+                    }),
 
                 TextColumn::make('metricable.platform')
                     ->label('Plataforma')
                     ->searchable(),
-
+                TextColumn::make('metricable_type')
+                    ->label('Tipo')
+                    ->badge()
+                    ->sortable()
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        ContentPost::class => 'Publicación',
+                        LabPost::class => 'Publicación',
+                        default => 'Desconocido'
+                    })
+                    ->color(fn ($state) => match ($state) {
+                        ContentPost::class => 'success',
+                        LabPost::class => 'info',
+                        default => 'gray'
+                    }),
                 TextColumn::make('created_at')
                     ->label('Fecha creación')
                     ->dateTime()
@@ -58,9 +89,16 @@ class ContentMetricsTable
                     ->schema([
                         Section::make()
                             ->schema([
-                                TextEntry::make('metricable.title')
+                                TextEntry::make('metricable_title')
                                     ->label('Título')
-                                    ->color('gray'),
+                                    ->color('gray')
+                                    ->state(fn ($record) => match (true) {
+                                        $record->metricable instanceof ContentPost => $record->metricable->title,
+                                        $record->metricable instanceof LabPost => $record->metricable->variable_variant
+                                            ?? $record->metricable->caption
+                                            ?? 'Lab post',
+                                        default => '-',
+                                    }),
                                 TextEntry::make('metricable.platform')
                                     ->label('Plataforma')
                                     ->color('gray'),

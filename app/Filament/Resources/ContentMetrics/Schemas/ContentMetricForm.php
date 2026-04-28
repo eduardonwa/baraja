@@ -18,6 +18,19 @@ class ContentMetricForm
     {
         return $schema
             ->components([
+                TextEntry::make('metric_type')
+                    ->label('Tipo')
+                    ->badge()
+                    ->color(fn ($record) => match (true) {
+                        $record->metricable instanceof ContentPost => 'success',
+                        $record->metricable instanceof LabPost => 'info',
+                        default => 'gray'
+                    })
+                    ->state(fn ($record) => match (true) {
+                        $record->metricable instanceof ContentPost => 'Publicación',
+                        $record->metricable instanceof LabPost => 'Experimento',
+                        default => '—'
+                    }),
                 TextEntry::make('post_header')
                     ->hiddenLabel()
                     ->state(function ($record) {

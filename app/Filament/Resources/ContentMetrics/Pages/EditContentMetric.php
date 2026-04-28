@@ -20,7 +20,15 @@ class EditContentMetric extends EditRecord
         return [
             DeleteAction::make(),
             Action::make('backToPost')
-                ->label('Publicación')
+                ->label(function () {
+                    $metricable = $this->record->metricable;
+
+                    return match (true) {
+                        $metricable instanceof ContentPost => 'Volver a publicación',
+                        $metricable instanceof LabPost => 'Volver a hipótesis',
+                        default => 'Volver',
+                    };
+                })
                 ->icon('heroicon-o-arrow-uturn-left')
                 ->url(function () {
                     $metricable = $this->record->metricable;
