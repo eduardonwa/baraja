@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Hypotheses;
 use App\Filament\Resources\Hypotheses\Pages\CreateHypothesis;
 use App\Filament\Resources\Hypotheses\Pages\EditHypothesis;
 use App\Filament\Resources\Hypotheses\Pages\ListHypotheses;
-use App\Filament\Resources\Hypotheses\Pages\ViewHypothesis;
 use App\Filament\Resources\Hypotheses\RelationManagers\TestsRelationManager;
 use App\Filament\Resources\Hypotheses\Schemas\HypothesisForm;
 use App\Filament\Resources\Hypotheses\Schemas\HypothesisInfolist;

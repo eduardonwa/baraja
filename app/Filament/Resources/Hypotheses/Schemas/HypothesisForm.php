@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Hypotheses\Schemas;
 
+use App\Filament\Resources\ContentPosts\ContentPostResource;
 use App\Models\Hypothesis;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
@@ -9,6 +10,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
+use Illuminate\Support\HtmlString;
 
 class HypothesisForm
 {
@@ -19,7 +21,21 @@ class HypothesisForm
                 TextEntry::make('source_post')
                     ->label('Publicación')
                     ->color('gray')
-                    ->state(fn ($record) => $record?->sourceContentPost?->title ?? '-'),
+                    ->state(function ($record) {
+                        $post = $record?->sourceContentPost;
+
+                        if (! $post) {
+                            return '-';
+                        }
+
+                        return new HtmlString((sprintf(
+                            '<a href="%s" target="_blank" rel="noopener noreferrer" class="text-primary-600 underline">%s</a>',
+                            ContentPostResource::getUrl('edit', [
+                                'record' => $post,
+                            ]),
+                            e($post->title ?? 'Ver publicación')
+                        )));
+                    }),
                 TextInput::make('title')
                     ->label('Título'),
                 Textarea::make('insight')
