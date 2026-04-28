@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class LabPost extends Model
 {
+    protected $casts = [
+        'same_format' => 'boolean',
+        'published_at' => 'datetime',
+    ];
 
     protected static function booted(): void
     {

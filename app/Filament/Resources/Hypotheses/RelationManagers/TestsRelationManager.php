@@ -11,12 +11,15 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -31,14 +34,18 @@ class TestsRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                Hidden::make('changed_variable')
-                    ->default(fn ($livewire) => $livewire->ownerRecord->variable)
-                    ->required(),
-                Textarea::make('change_description')
-                    ->label('Variación')
-                    ->required()
-                    ->columnSpanFull()
-                    ->helperText('Descripción del cambio. Ej: "texto más corto"'),
+            Textarea::make('change_description')
+                ->label(function ($livewire) {
+                    $variable = $livewire->ownerRecord->variable === 'other'
+                        ? $livewire->ownerRecord->variable_custom
+                        : Hypothesis::VARIABLE_LABELS[$livewire->ownerRecord->variable];
+
+                    return "Variación de {$variable}";
+                })
+                ->required()
+                ->columnSpanFull()
+                ->helperText('Describe cómo cambiaste esta variable.'),
+
                 Select::make('result')
                     ->label('Resultado')
                     ->options([
@@ -63,7 +70,7 @@ class TestsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('change_description')
             ->columns([
-                TextColumn::make('changed_variable')
+                TextColumn::make('hypothesis.variable')
                     ->label('Variable')
                     ->formatStateUsing(fn ($state) =>
                         Hypothesis::VARIABLE_LABELS[$state] ?? $state
@@ -116,28 +123,63 @@ class TestsRelationManager extends RelationManager
                         $labPost = $record->labPost;
 
                         return $labPost ? [
-                            'title' => $labPost->title,
+                            // VARIABLE
+                            'variable_variant' => $labPost->variable_variant,
+                            'notes' => $labPost->notes,
+                            // DEETAILS
                             'caption' => $labPost->caption,
                             'platform' => $labPost->platform,
+                            'same_format' => (bool) $labPost->same_format,
+                            'format_used' => $labPost->format_used,
                             'published_at' => $labPost->published_at,
-                            'notes' => $labPost->notes,
                         ] : [];
                     })
                     ->schema([
-                        TextInput::make('title')
-                            ->label('Título'),
-                        Textarea::make('caption')
-                            ->label('Descripción'),
-                        TextInput::make('platform')
-                            ->label('Plataforma'),
-                        DateTimePicker::make('published_at')
-                            ->label('Publicado')
-                            ->dateMex(),
-                        Textarea::make('notes')
-                            ->label('Notas')
+                        Tabs::make('LabPostTabs')
+                            ->tabs([
+                                Tab::make('Variable')
+                                    ->schema([
+                                        TextInput::make('variable_variant')
+                                            ->label('Variación')
+                                            ->required(),
+
+                                        Textarea::make('notes')
+                                            ->label('Notas')
+                                            ->columnSpanFull(),
+                                    ]),
+
+                                Tab::make('Detalles')
+                                    ->schema([
+                                        Textarea::make('caption')
+                                            ->label('Descripción usada')
+                                            ->columnSpanFull(),
+
+                                        TextInput::make('platform')
+                                            ->label('Plataforma'),
+
+                                        Checkbox::make('same_format')
+                                            ->label('Usé el mismo formato')
+                                            ->default(true)
+                                            ->live(),
+
+                                        TextInput::make('format_used')
+                                            ->label('Formato usado')
+                                            ->placeholder('Ej: reel, carrusel, imagen estática')
+                                            ->visible(fn ($get) => ! $get('same_format'))
+                                            ->required(fn ($get) => ! $get('same_format')),
+
+                                        DateTimePicker::make('published_at')
+                                            ->label('Publicado')
+                                            ->dateMex(),
+                                    ]),
+                            ])
+                            ->columnSpanFull(),
                     ])
                     ->action(function (HypothesisTest $record, array $data) {
-                        $record->labPost()->create($data);
+                        $record->labPost()->updateOrCreate(
+                            ['hypothesis_test_id' => $record->id],
+                            $data
+                        );
                     })
             ])
             ->toolbarActions([

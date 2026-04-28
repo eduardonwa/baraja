@@ -17,15 +17,19 @@ return new class extends Migration
             
             $table->string('title')->nullable();
             $table->text('insight')->nullable();
+
             $table->enum('variable', [
                 'hook',
                 'topic',
+                'visual',
                 'format',
                 'caption',
                 'combination',
                 'distribution',
-                'text_in_image',
+                'other'
             ]);
+            $table->string('variable_custom')->nullable();
+
             $table->enum('status', [
                 'observing',
                 'testing',
@@ -33,6 +37,7 @@ return new class extends Migration
                 'reliable',
                 'discarded'
             ])->default('observing');
+
             $table->unsignedTinyInteger('positive_signals_count')->default(0);
             $table->unsignedTinyInteger('failed_tests_count')->default(0);
             $table->unsignedTinyInteger('confidence_score')->nullable();

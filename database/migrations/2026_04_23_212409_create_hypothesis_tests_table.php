@@ -16,18 +16,7 @@ return new class extends Migration
 
             $table->foreignId('hypothesis_id')->constrained('hypotheses')->cascadeOnDelete();
             
-            $table->enum('changed_variable', [
-                'hook',
-                'topic',
-                'format',
-                'caption',
-                'combination',
-                'distribution',
-                'text_in_image'
-            ]);
-            
             $table->text('change_description');
-
             $table->enum('result', [
                 'pending',
                 'confirmed',
@@ -36,7 +25,6 @@ return new class extends Migration
             
             $table->unsignedTinyInteger('signal_strength')->nullable();
             $table->text('observations')->nullable();
-
             $table->timestamps();
 
             $table->index(['hypothesis_id', 'result']);

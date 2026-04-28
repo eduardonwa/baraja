@@ -22,11 +22,12 @@ class Hypothesis extends Model
     public const VARIABLE_LABELS = [
         'hook' => 'Hook',
         'topic' => 'Tema',
+        'visual' => 'Visual',
         'format' => 'Formato',
         'caption' => 'Caption/descripción de publicación',
         'combination' => 'Combinación (hook + idea)',
         'distribution' => 'Distribución',
-        'text_in_image' => 'Texto en imagen'
+        'other' => 'Otro'
     ];
 
     // RELATIONSHIPS

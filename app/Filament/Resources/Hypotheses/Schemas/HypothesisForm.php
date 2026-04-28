@@ -28,9 +28,15 @@ class HypothesisForm
 
                 Select::make('variable')
                     ->options(Hypothesis::VARIABLE_LABELS)
-                    ->required()
                     ->disabled(fn (string $operation): bool => $operation === 'edit')
-                    ->dehydrated(),
+                    ->dehydrated()
+                    ->live()
+                    ->required(),
+
+                TextInput::make('variable_custom')
+                    ->label('Especifica la variable')
+                    ->visible(fn ($get) => $get('variable') === 'other')
+                    ->required(fn ($get) => $get('variable') === 'other'),
                     
                 Select::make('status')
                     ->options([
