@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ContentPosts\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
@@ -45,8 +46,15 @@ class ContentPostForm
                     ->label('Formato'),
                 Textarea::make('caption')
                     ->columnSpanFull(),
-                TextInput::make('platform')
-                    ->label('Plataforma')
+                Select::make('accountPlatforms')
+                    ->label('Plataformas')
+                    ->multiple()
+                    ->relationship(
+                        'accountPlatforms',
+                        'network',
+                        fn ($query) => $query->where('user_id', auth()->id())
+                    )
+                    ->preload()
                     ->required(),
                 DateTimePicker::make('published_at')
                     ->label('Publicado')

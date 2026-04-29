@@ -2,18 +2,21 @@
 
 namespace Database\Seeders;
 
+use App\Models\AccountPlatform;
 use App\Models\Hook;
 use App\Models\Idea;
 use App\Models\RotationCycle;
 use App\Models\RotationCycleItem;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class DashboardSeeder extends Seeder
 {
     public function run(): void
     {
-        $hooks = Hook::query()->orderBy('id')->get();
+        $hooks = Hook::query()->orderBy('id', 'asc')->get();
 
         if ($hooks->count() !== 34) {
             throw new \RuntimeException(
@@ -29,6 +32,10 @@ class DashboardSeeder extends Seeder
         ]);
 
         $plan = $this->buildDashboardPlan();
+
+        $user = User::where('email', 'eduardo@hotmail.com')->firstOrFail();
+
+        $accountPlatforms = $this->createAccountPlatformsFor($user);
 
         foreach ($plan as $index => $profile) {
             $hook = $hooks[$index];
@@ -55,13 +62,12 @@ class DashboardSeeder extends Seeder
                 'created_at' => $publishedAt,
                 'updated_at' => $publishedAt,
             ]);
-
+                        
             $post = $item->contentPost()->create([
                 'title' => $idea->title ?? 'Dashboard Test Content #' . ($index + 1),
                 'type' => $profile['type'],
                 'format' => $profile['format'],
                 'caption' => null,
-                'platform' => 'instagram',
                 'published_at' => $publishedAt,
                 'hashtags' => '#marketing #branding #content',
                 'people_tagged_and_dmd' => 'creator_a, creator_b',
@@ -70,6 +76,14 @@ class DashboardSeeder extends Seeder
                 'created_at' => $publishedAt,
                 'updated_at' => $publishedAt,
             ]);
+
+            $selectedPlatforms = $accountPlatforms->random(
+                rand(1, $accountPlatforms->count())
+            );
+
+            $post->accountPlatforms()->sync(
+                $selectedPlatforms->pluck('id')->all()
+            );
 
             $metric = $post->metric;
 
@@ -271,5 +285,32 @@ class DashboardSeeder extends Seeder
     protected function randomPercent(float $min, float $max): float
     {
         return rand((int) ($min * 100), (int) ($max * 100)) / 100;
+    }
+
+    protected function createAccountPlatformsFor(User $user): Collection
+    {
+        $networks = [
+            'facebook',
+            'instagram',
+            'threads',
+            'tiktok',
+            'youtube',
+            'x',
+            'other',
+        ];
+
+        $selectedNetworks = Arr::random($networks, rand(1, 2));
+
+        return collect($selectedNetworks)->map(function ($network) use ($user) {
+            return AccountPlatform::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'network' => $network,
+                ],
+                [
+                    'handle' => '@' . fake()->unique()->userName(),
+                ]
+            );
+        });
     }
 }

@@ -21,8 +21,10 @@ class ContentPostsTable
                 TextColumn::make('type')
                     ->label('Tipo de publicación')
                     ->searchable(),
-                TextColumn::make('platform')
-                    ->label('Plataforma')
+                TextColumn::make('accountPlatforms.network')
+                    ->label('Plataformas')
+                    ->badge()
+                    ->separator(', ')
                     ->searchable(),
                 TextColumn::make('published_at')
                     ->label('Publicado')

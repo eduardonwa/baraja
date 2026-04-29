@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('hypothesis_test_id')->unique()->constrained('hypothesis_tests')->cascadeOnDelete();
+            $table->foreignId('platform_account_id')->nullable()->constrained()->cascadeOnDelete();
 
             // NEW VARIANT INFO
             $table->string('variable_variant');
             $table->text('notes')->nullable();            
             // EXTRA INFO
             $table->text('caption')->nullable();
-            $table->string('platform')->nullable();
             $table->boolean('same_format')->default(true);
             $table->string('format_used')->nullable();
             $table->dateTime('published_at')->nullable();
