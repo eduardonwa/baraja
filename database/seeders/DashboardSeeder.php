@@ -299,7 +299,7 @@ class DashboardSeeder extends Seeder
             'other',
         ];
 
-        $selectedNetworks = Arr::random($networks, rand(1, 2));
+        $selectedNetworks = Arr::random($networks, 2);
 
         return collect($selectedNetworks)->map(function ($network) use ($user) {
             return AccountPlatform::firstOrCreate(

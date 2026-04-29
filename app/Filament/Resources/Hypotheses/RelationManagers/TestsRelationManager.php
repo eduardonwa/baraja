@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Hypotheses\RelationManagers;
 
 use App\Filament\Resources\ContentMetrics\ContentMetricResource;
+use App\Models\AccountPlatform;
 use App\Models\Hypothesis;
 use App\Models\HypothesisTest;
 use Filament\Actions\Action;
@@ -10,7 +11,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
@@ -127,7 +127,9 @@ class TestsRelationManager extends RelationManager
                             'notes' => $labPost->notes,
                             // DEETAILS
                             'caption' => $labPost->caption,
-                            'platform' => $labPost->platform,
+                            'account_platform_ids' => $labPost->accountPlatforms()
+                                ->pluck('account_platforms.id')
+                                ->toArray(),
                             'same_format' => (bool) $labPost->same_format,
                             'format_used' => $labPost->format_used,
                             'published_at' => $labPost->published_at,
@@ -152,10 +154,16 @@ class TestsRelationManager extends RelationManager
                                         Textarea::make('caption')
                                             ->label('Descripción usada')
                                             ->columnSpanFull(),
-
-                                        TextInput::make('platform')
-                                            ->label('Plataforma'),
-
+                                        Select::make('account_platform_ids')
+                                            ->label('Plataformas')
+                                            ->multiple()
+                                            ->options(
+                                                AccountPlatform::query()
+                                                    ->where('user_id', auth()->id())
+                                                    ->pluck('network', 'id')
+                                            )
+                                            ->preload()
+                                            ->required(),
                                         Checkbox::make('same_format')
                                             ->label('Usé el mismo formato')
                                             ->default(true)
@@ -194,10 +202,16 @@ class TestsRelationManager extends RelationManager
                         ];
                     })
                     ->action(function (HypothesisTest $record, array $data) {
-                        $record->labPost()->updateOrCreate(
+                        $platformIds = $data['account_platform_ids'] ?? [];
+                        
+                        unset($data['account_platform_ids']);
+
+                        $labPost = $record->labPost()->updateOrCreate(
                             ['hypothesis_test_id' => $record->id],
                             $data
                         );
+
+                        $labPost->accountPlatforms()->sync($platformIds);
                     })
             ])
             ->toolbarActions([
