@@ -2,20 +2,27 @@
 
 namespace Database\Seeders;
 
-use App\Models\AccountPlatform;
+use App\Models\Account;
 use App\Models\Hook;
 use App\Models\Idea;
+use App\Models\Platform;
 use App\Models\RotationCycle;
 use App\Models\RotationCycleItem;
 use App\Models\User;
+use Database\Seeders\PlatformSeeder;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class DashboardSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->call(PlatformSeeder::class);
+
+        $user = User::where('email', 'eduardo@hotmail.com')->firstOrFail();
+
+        $accounts = $this->createUserAccounts($user);
+
         $hooks = Hook::query()->orderBy('id', 'asc')->get();
 
         if ($hooks->count() !== 34) {
@@ -32,10 +39,6 @@ class DashboardSeeder extends Seeder
         ]);
 
         $plan = $this->buildDashboardPlan();
-
-        $user = User::where('email', 'eduardo@hotmail.com')->firstOrFail();
-
-        $accountPlatforms = $this->createAccountPlatformsFor($user);
 
         foreach ($plan as $index => $profile) {
             $hook = $hooks[$index];
@@ -62,12 +65,15 @@ class DashboardSeeder extends Seeder
                 'created_at' => $publishedAt,
                 'updated_at' => $publishedAt,
             ]);
+
+            $account = $accounts->random();
                         
             $post = $item->contentPost()->create([
                 'title' => $idea->title ?? 'Dashboard Test Content #' . ($index + 1),
                 'type' => $profile['type'],
                 'format' => $profile['format'],
                 'caption' => null,
+                'account_id' => $account->id,
                 'published_at' => $publishedAt,
                 'hashtags' => '#marketing #branding #content',
                 'people_tagged_and_dmd' => 'creator_a, creator_b',
@@ -76,14 +82,6 @@ class DashboardSeeder extends Seeder
                 'created_at' => $publishedAt,
                 'updated_at' => $publishedAt,
             ]);
-
-            $selectedPlatforms = $accountPlatforms->random(
-                rand(1, $accountPlatforms->count())
-            );
-
-            $post->accountPlatforms()->sync(
-                $selectedPlatforms->pluck('id')->all()
-            );
 
             $metric = $post->metric;
 
@@ -287,30 +285,42 @@ class DashboardSeeder extends Seeder
         return rand((int) ($min * 100), (int) ($max * 100)) / 100;
     }
 
-    protected function createAccountPlatformsFor(User $user): Collection
+    protected function createUserAccounts(User $user): Collection
     {
-        $networks = [
-            'facebook',
+        $platforms = Platform::whereIn('slug', [
             'instagram',
-            'threads',
-            'tiktok',
-            'youtube',
-            'x',
-            'other',
-        ];
+            'facebook'
+        ])->get();
 
-        $selectedNetworks = Arr::random($networks, 2);
+        return $platforms->map(function (Platform $platform) use ($user) {
 
-        return collect($selectedNetworks)->map(function ($network) use ($user) {
-            return AccountPlatform::firstOrCreate(
-                [
-                    'user_id' => $user->id,
-                    'network' => $network,
-                ],
-                [
-                    'handle' => '@' . fake()->unique()->userName(),
-                ]
-            );
+            $existing = Account::where([
+                'user_id' => $user->id,
+                'platform_id' => $platform->id
+            ])->first();
+
+            if ($existing) {
+                return $existing;
+            }
+
+            return Account::create([
+                'user_id' => $user->id,
+                'platform_id' => $platform->id,
+                'handle' => '@' . fake()->unique()->userName(),
+                'name' => fake()->name(),
+                'niche' => fake()->randomElement([
+                    'fitness',
+                    'food',
+                    'fashion',
+                    'travel',
+                    'marketing',
+                    'branding',
+                    'content creation',
+                    'music',
+                    'education'
+                ]),
+                'is_active' => true
+            ]);
         });
     }
 }

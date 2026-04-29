@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('content_posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rotation_cycle_item_id')->constrained()->cascadeOnDelete()->unique();
-            $table->foreignId('platform_account_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('account_id')->nullable()->constrained()->nullOnDelete();
 
             $table->string('title')->nullable();
             $table->string('type')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
 
             $table->index(['rotation_cycle_item_id', 'published_at'], 'rci_published_index');
             $table->index('published_at');
-            $table->unique(['platform_account_id', 'external_post_id'], 'platform_external_unique');
+            $table->unique(['account_id', 'external_post_id'], 'account_external_unique');
         });
     }
 

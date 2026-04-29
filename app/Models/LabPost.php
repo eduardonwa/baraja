@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\AccountPlatform;
+use App\Models\Account;
 use App\Models\ContentMetric;
 use App\Models\HypothesisTest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class LabPost extends Model
 {
@@ -33,9 +32,9 @@ class LabPost extends Model
     {
         return $this->morphOne(ContentMetric::class, 'metricable');
     }
-    
-    public function accountPlatforms(): MorphToMany
+
+    public function account(): BelongsTo
     {
-        return $this->morphToMany(AccountPlatform::class, 'account_platformable');
+        return $this->belongsTo(Account::class);
     }
 }

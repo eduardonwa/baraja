@@ -46,15 +46,18 @@ class ContentPostForm
                     ->label('Formato'),
                 Textarea::make('caption')
                     ->columnSpanFull(),
-                Select::make('accountPlatforms')
-                    ->label('Plataformas')
-                    ->multiple()
+                Select::make('account_id')
+                    ->label('Cuenta')
                     ->relationship(
-                        'accountPlatforms',
-                        'network',
+                        'account',
+                        'handle',
                         fn ($query) => $query->where('user_id', auth()->id())
                     )
+                    ->getOptionLabelFromRecordUsing(fn ($record) =>
+                        "{$record->platform->name} — {$record->handle}"
+                    )
                     ->preload()
+                    ->searchable()
                     ->required(),
                 DateTimePicker::make('published_at')
                     ->label('Publicado')

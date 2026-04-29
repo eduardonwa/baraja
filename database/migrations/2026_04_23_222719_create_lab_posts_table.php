@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('hypothesis_test_id')->unique()->constrained('hypothesis_tests')->cascadeOnDelete();
-            $table->foreignId('platform_account_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('account_id')->nullable()->constrained()->nullOnDelete();
 
             // NEW VARIANT INFO
             $table->string('variable_variant');
