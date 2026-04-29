@@ -13,21 +13,18 @@ class AccountForm
     {
         return $schema
             ->components([
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
                 Select::make('platform_id')
                     ->label('Plataforma')
                     ->relationship('platform', 'name')
                     ->preload()
                     ->required(),
                 TextInput::make('handle')
-                    ->label('Nombre de usuario')
+                    ->label('Usuario en plataforma')
                     ->maxLength(255)
                     ->required(),
                 TextInput::make('name')
-                    ->maxLength(255)
-                    ->label('Nombre'),
+                    ->label('Nombre de la cuenta')
+                    ->maxLength(255),
                 TextInput::make('niche')
                     ->label('Nicho')
                     ->maxLength(255),

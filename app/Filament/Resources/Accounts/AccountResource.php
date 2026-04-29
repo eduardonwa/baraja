@@ -22,6 +22,15 @@ class AccountResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'Cuenta';
+    
+    protected static ?string $pluralModelLabel = 'Cuentas';
+
+    public function getTitle(): string
+    {
+        return 'Editar ' . $this->record->title;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return AccountForm::configure($schema);

@@ -22,9 +22,18 @@ class HypothesisResource extends Resource
 {
     protected static ?string $model = Hypothesis::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBeaker;
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    protected static ?string $modelLabel = 'Experimento';
+    
+    protected static ?string $pluralModelLabel = 'Experimentos';
+
+    public function getTitle(): string
+    {
+        return 'Editar ' . $this->record->title;
+    }
 
     public static function form(Schema $schema): Schema
     {

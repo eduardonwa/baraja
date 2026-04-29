@@ -16,20 +16,27 @@ class AccountsTable
         return $table
             ->columns([
                 TextColumn::make('handle')
+                    ->label('Usuario')
                     ->searchable(),
                 TextColumn::make('platform.name')
+                    ->label('Plataforma')
                     ->searchable(),
                 TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable(),
                 IconColumn::make('is_default')
+                    ->label('Predeterminada')
                     ->boolean(),
                 IconColumn::make('is_active')
+                    ->label('Activa')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label('Creada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Actualizada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

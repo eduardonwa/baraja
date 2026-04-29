@@ -74,7 +74,7 @@ class ContentPostForm
                                 // INFO
                                 View::make('filament.components.header')
                                     ->viewData([
-                                        'title' => 'Información general'
+                                        'title' => 'Detalles'
                                     ])
                                     ->columnSpanFull(),
                                 TextInput::make('title')
@@ -96,12 +96,13 @@ class ContentPostForm
                                 // META
                                 View::make('filament.components.header')
                                     ->viewData([
-                                        'title' => 'Datos metadata'
+                                        'title' => 'Configuración'
                                     ])
                                     ->columnSpanFull(),
                                 Grid::make(2)
                                     ->schema([
-                                        TextInput::make('external_post_id'),
+                                        TextInput::make('external_post_id')
+                                            ->label('ID externo'),
                                         DateTimePicker::make('published_at')
                                             ->label('Publicado')
                                             ->dateMex()
@@ -109,7 +110,7 @@ class ContentPostForm
                                 Textarea::make('hashtags')
                                     ->columnSpanFull(),
                                 Textarea::make('people_tagged_and_dmd')
-                                    ->label('Personas etiquetadas y dmd')
+                                    ->label('Personas etiquetadas y contactadas')
                                     ->columnSpanFull(),
                                 ]),
                                 
