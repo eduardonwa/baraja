@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
+/**
+ * @mixin IdeHelperContentPost
+ */
 class ContentPost extends Model
 {
     protected static function booted(): void

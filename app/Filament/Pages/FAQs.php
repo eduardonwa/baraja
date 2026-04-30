@@ -18,5 +18,5 @@ class FAQs extends Page implements HasForms, HasInfolists
 
     protected static ?string $navigationLabel = 'Guía';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 6;
 }

@@ -10,6 +10,7 @@ use App\Filament\Widgets\FunnelKpiWidget;
 use App\Filament\Widgets\PerformanceHeader;
 use App\Filament\Widgets\PerformanceOverview;
 use App\Filament\Widgets\PerformanceSummary;
+use App\Filament\Widgets\QuickHookGenerator;
 use App\Filament\Widgets\VolumeHeader;
 use App\Filament\Widgets\VolumeOverview;
 use App\Filament\Widgets\VolumeOverviewChart;
@@ -27,6 +28,8 @@ class Dashboard extends Page
     protected function getHeaderWidgets(): array
     {
         return [
+            QuickHookGenerator::class,
+            
             FunnelHeader::class,
             FunnelBreakdownWidget::class,
             FunnelKpiWidget::class,

@@ -30,6 +30,8 @@ class HypothesisResource extends Resource
     
     protected static ?string $pluralModelLabel = 'Experimentos';
 
+    protected static ?int $navigationSort = 5;
+
     public function getTitle(): string
     {
         return 'Editar ' . $this->record->title;

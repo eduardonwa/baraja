@@ -6,6 +6,9 @@ use App\Models\Hook;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @mixin IdeHelperHookGroup
+ */
 class HookGroup extends Model
 {
     public function hooks(): BelongsToMany

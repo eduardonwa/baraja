@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * @mixin IdeHelperRotationCycleItem
+ */
 class RotationCycleItem extends Model
 {
     use HasFactory;

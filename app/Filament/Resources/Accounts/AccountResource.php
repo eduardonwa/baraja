@@ -18,13 +18,15 @@ class AccountResource extends Resource
 {
     protected static ?string $model = Account::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedAtSymbol;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $modelLabel = 'Cuenta';
     
     protected static ?string $pluralModelLabel = 'Cuentas';
+
+    protected static ?int $navigationSort = 4;
 
     public function getTitle(): string
     {

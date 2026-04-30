@@ -26,7 +26,13 @@
     @if ($activeTab === 'groups')
         <div>
             <p class="text-sm text-gray-500">
-                Colecciones reutilizables para tus barajas.
+                Pre-selecciona hooks y utilízalos en tu
+                <a
+                    href="{{ \App\Filament\Resources\RotationCycles\RotationCycleResource::getUrl() }}"
+                    class="font-medium text-primary-600 hover:text-primary-500"
+                >
+                    próxima baraja
+                </a>
             </p>
         </div>
         
@@ -78,115 +84,113 @@
                 </div>
         
                 <div class="lg:col-span-8">
-                    {{-- <x-filament::section> --}}
-                        <x-slot name="heading">
-                            Hooks del grupo
-                        </x-slot>
-        
-                        @if ($this->selectedGroup)
-                            <div class="space-y-3">
-                                <div class="mb-4 flex items-start justify-between gap-3">
-                                    <div>
-                                        <h2 class="text-lg font-semibold">
-                                            {{ $this->selectedGroup->name }}
-                                        </h2>
-        
-                                        @if ($this->selectedGroup->description)
-                                            <p class="text-sm text-gray-500">
-                                                {{ $this->selectedGroup->description }}
-                                            </p>
-                                        @endif
-                                    </div>
-        
-                                    <div class="flex items-center gap-2">
-                                        {{ $this->assignHooksAction }}
-                                        {{ $this->deleteGroupAction }}
-                                    </div>
-                                </div>
-        
-                                {{-- AQUÍ VA EL ACORDEÓN DE HOOKS --}}
-                                <div class="space-y-2">
-                                    @if ($this->selectedGroup->hooks->isNotEmpty())
-                                        <div
-                                            x-data
-                                            x-ref="hookList"
-                                            x-init="
-                                                new Sortable($refs.hookList, {
-                                                    animation: 150,
-                                                    handle: '[data-sortable-handle]',
-                                                    onEnd: () => {
-                                                        const ids = Array.from($refs.hookList.children).map((item) => item.dataset.hookId)
-        
-                                                        $wire.reorderHooks(ids)
-                                                    },
-                                                })
-                                            "
-                                            class="space-y-2"
-                                        >
-                                            @foreach ($this->selectedGroup->hooks as $hook)
-                                                <div
-                                                    wire:key="hook-group-{{ $this->selectedGroup->id }}-hook-{{ $hook->id }}"
-                                                    data-hook-id="{{ $hook->id }}"
-                                                    class="rounded-xl border border-gray-200 p-4 dark:border-white/10"
-                                                >
-                                                    <div class="flex items-start gap-3">
-                                                        <button
-                                                            type="button"
-                                                            data-sortable-handle
-                                                            class="cursor-grab text-gray-400 hover:text-gray-700 active:cursor-grabbing dark:hover:text-gray-200"
-                                                        >
-                                                            ☰
-                                                        </button>
-        
-                                                        <div class="flex-1">
-                                                            <button
-                                                                type="button"
-                                                                wire:click="toggleHookDetails({{ $hook->id }})"
-                                                                class="flex w-full items-center justify-between gap-4 text-left"
-                                                            >
-                                                                <div class="flex items-center gap-2">
-                                                                    <span class="text-xs text-gray-500">#{{ $hook->pivot->sort_order }}</span>
-                                                                    <div class="font-medium">
-                                                                        {{ $hook->title ?? $hook->name ?? $hook->hook }}
-                                                                    </div>
-                                                                </div>
-        
-                                                                <div class="text-xs text-gray-500">
-                                                                    {{ $expandedHookId === $hook->id ? 'Cerrar' : 'Ver detalles' }}
-                                                                </div>
-                                                            </button>
-        
-                                                            @if ($expandedHookId === $hook->id)
-                                                                <div class="mt-3 border-t border-gray-200 pt-3 text-sm text-gray-600 dark:border-white/10 dark:text-gray-400">
-                                                                    @if (! empty($hook->description))
-                                                                        <p>
-                                                                            {{ $hook->description }}
-                                                                        </p>
-                                                                    @else
-                                                                        <p class="italic text-gray-400">
-                                                                            Este hook no tiene descripción.
-                                                                        </p>
-                                                                    @endif
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    @else
+                    <x-slot name="heading">
+                        Hooks del grupo
+                    </x-slot>
+    
+                    @if ($this->selectedGroup)
+                        <div class="space-y-3">
+                            <div class="mb-4 flex items-start justify-between gap-3">
+                                <div>
+                                    <h2 class="text-lg font-semibold">
+                                        {{ $this->selectedGroup->name }}
+                                    </h2>
+    
+                                    @if ($this->selectedGroup->description)
                                         <p class="text-sm text-gray-500">
-                                            Este grupo todavía no tiene hooks.
+                                            {{ $this->selectedGroup->description }}
                                         </p>
                                     @endif
                                 </div>
+    
+                                <div class="flex items-center gap-2">
+                                    {{ $this->assignHooksAction }}
+                                    {{ $this->deleteGroupAction }}
+                                </div>
                             </div>
-                        @else
-                            <p class="text-sm text-gray-500">
-                                Selecciona o crea un grupo de hooks.
-                            </p>
-                        @endif
-                    {{-- </x-filament::section> --}}
+    
+                            {{-- ACORDEÓN DE HOOKS --}}
+                            <div class="space-y-2">
+                                @if ($this->selectedGroup->hooks->isNotEmpty())
+                                    <div
+                                        x-data
+                                        x-ref="hookList"
+                                        x-init="
+                                            new Sortable($refs.hookList, {
+                                                animation: 150,
+                                                handle: '[data-sortable-handle]',
+                                                onEnd: () => {
+                                                    const ids = Array.from($refs.hookList.children).map((item) => item.dataset.hookId)
+    
+                                                    $wire.reorderHooks(ids)
+                                                },
+                                            })
+                                        "
+                                        class="space-y-2"
+                                    >
+                                        @foreach ($this->selectedGroup->hooks as $hook)
+                                            <div
+                                                wire:key="hook-group-{{ $this->selectedGroup->id }}-hook-{{ $hook->id }}"
+                                                data-hook-id="{{ $hook->id }}"
+                                                class="rounded-xl border border-gray-200 p-4 dark:border-white/10"
+                                            >
+                                                <div class="flex items-start gap-3">
+                                                    <button
+                                                        type="button"
+                                                        data-sortable-handle
+                                                        class="cursor-grab text-gray-400 hover:text-gray-700 active:cursor-grabbing dark:hover:text-gray-200"
+                                                    >
+                                                        @svg('icon-drag-icon', 'w-5 h-5 text-gray-500')
+                                                    </button>
+    
+                                                    <div class="flex-1">
+                                                        <button
+                                                            type="button"
+                                                            wire:click="toggleHookDetails({{ $hook->id }})"
+                                                            class="flex w-full items-center justify-between gap-4 text-left"
+                                                        >
+                                                            <div class="flex items-center gap-2">
+                                                                <span class="text-xs text-gray-500">#{{ $hook->pivot->sort_order }}</span>
+                                                                <div class="font-medium">
+                                                                    {{ $hook->title ?? $hook->name ?? $hook->hook }}
+                                                                </div>
+                                                            </div>
+    
+                                                            <div class="text-xs text-gray-500">
+                                                                {{ $expandedHookId === $hook->id ? 'Cerrar' : 'Ver detalles' }}
+                                                            </div>
+                                                        </button>
+    
+                                                        @if ($expandedHookId === $hook->id)
+                                                            <div class="mt-3 border-t border-gray-200 pt-3 text-sm text-gray-600 dark:border-white/10 dark:text-gray-400">
+                                                                @if (! empty($hook->description))
+                                                                    <p>
+                                                                        {{ $hook->description }}
+                                                                    </p>
+                                                                @else
+                                                                    <p class="italic text-gray-400">
+                                                                        Este hook no tiene descripción.
+                                                                    </p>
+                                                                @endif
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <p class="text-sm text-gray-500">
+                                        Este grupo todavía no tiene hooks.
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+                    @else
+                        <p class="text-sm text-gray-500">
+                            Selecciona o crea un grupo de hooks.
+                        </p>
+                    @endif
                 </div>
             </div>
         </x-filament::section>
@@ -200,12 +204,12 @@
 
         <div>
             <p class="text-sm text-gray-500">
-                Tu banco de hooks. Desde aquí puedes editarlos en grupo o 
+                Esta es tu librería de hooks. Aparecerán en todas tus
                 <a
                     href="{{ \App\Filament\Resources\RotationCycles\RotationCycleResource::getUrl() }}"
                     class="font-medium text-primary-600 hover:text-primary-500"
                 >
-                    abrir una nueva baraja
+                    barajas
                 </a>
             </p>
         </div>

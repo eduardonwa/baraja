@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\ContentMetrics;
 
 use App\Filament\Clusters\Analiticas\AnaliticasCluster;
-use App\Filament\Resources\ContentMetrics\Pages\CreateContentMetric;
 use App\Filament\Resources\ContentMetrics\Pages\EditContentMetric;
 use App\Filament\Resources\ContentMetrics\Pages\ListContentMetrics;
 use App\Filament\Resources\ContentMetrics\Schemas\ContentMetricForm;
@@ -27,6 +26,8 @@ class ContentMetricResource extends Resource
     protected static ?string $pluralLabel = 'Analíticas';
 
     protected static ?string $cluster = AnaliticasCluster::class;
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

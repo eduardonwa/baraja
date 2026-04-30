@@ -16,17 +16,19 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Filament\Tables\Table;
-use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Concerns\InteractsWithTable;
 
 class HookManager extends Page implements HasTable
 {
     use InteractsWithTable;
 
     protected string $view = 'filament.clusters.planeador.pages.hook-manager';
+
+    protected static string | \BackedEnum | null $navigationIcon = 'icon-hook-icon';
 
     protected static ?string $cluster = PlaneadorCluster::class;
 
@@ -120,7 +122,7 @@ class HookManager extends Page implements HasTable
                     ? 'gray'
                     : 'primary';
             })
-            ->icon('heroicon-o-link')
+            ->icon('heroicon-o-pencil')
             ->modalHeading(function (): string {
                 $group = $this->selectedGroup;
 
@@ -323,6 +325,7 @@ class HookManager extends Page implements HasTable
 
             CreateAction::make('createHook')
                 ->label('Crear hook')
+                ->icon('heroicon-o-plus')
                 ->model(Hook::class)
                 ->schema(HookForm::getFormSchema())
                 ->visible(fn (): bool => $this->activeTab === 'library')
