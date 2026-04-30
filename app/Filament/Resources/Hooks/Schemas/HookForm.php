@@ -7,18 +7,22 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 
 class HookForm
-{
+{   
     public static function configure(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                TextInput::make('name')
-                    ->label('Nombre')
-                    ->required()
-                    ->columnSpanFull(),
-                Textarea::make('description')
-                    ->label('Descripción')
-                    ->columnSpanFull(),
-            ]);
+        return $schema->components(static::getFormSchema());
+    }
+
+    public static function getFormSchema(): array
+    {
+        return [
+            TextInput::make('name')
+                ->label('Nombre')
+                ->required()
+                ->columnSpanFull(),
+            Textarea::make('description')
+                ->label('Descripción')
+                ->columnSpanFull(),
+        ];
     }
 }
