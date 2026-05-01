@@ -14,6 +14,7 @@ class HookSeeder extends Seeder
     {
         $hooks = collect(config('hooks'))->map(function ($hook) {
             return array_merge($hook, [
+                'description' => str_replace('\n', "\n", trim($hook['description'])),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

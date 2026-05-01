@@ -4,11 +4,11 @@
             <div class="flex items-start justify-between gap-4">
                 <div>
                     <h2 class="text-base font-semibold text-gray-950 dark:text-white">
-                        Hook Roulette
+                        Ruleta de hooks
                     </h2>
 
                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                        Pull one hook from the vault.
+                        Saca un hook del baúl
                     </p>
                 </div>
 
@@ -19,11 +19,11 @@
                     icon="heroicon-m-sparkles"
                 >
                     <span wire:loading.remove wire:target="generateHook">
-                        Spin hook
+                        Girar hook
                     </span>
 
                     <span wire:loading wire:target="generateHook">
-                        Spinning...
+                        Girando...
                     </span>
                 </x-filament::button>
             </div>
@@ -37,13 +37,11 @@
                     <p class="text-lg font-semibold text-gray-950 dark:text-white">
                         {{ $this->selectedHook->name }}
                     </p>
-
-                    <p class="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">
-                        {{ $this->selectedHook->description }}
-                    </p>
+                    {{-- dejar en una sola linea por la identación del <p> --}}
+                    <p class="whitespace-pre-line mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">{{ trim($this->selectedHook->description) }}</p>
                 @else
                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                        Spin first. Let the system pick the angle.
+                        Gira primero. Deja que el sistema elija tu suerte.
                     </p>
                 @endif
             </div>

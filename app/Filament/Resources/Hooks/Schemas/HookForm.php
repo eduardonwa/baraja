@@ -22,6 +22,7 @@ class HookForm
                 ->columnSpanFull(),
             Textarea::make('description')
                 ->label('Descripción')
+                ->autosize()
                 ->columnSpanFull(),
         ];
     }

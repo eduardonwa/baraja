@@ -162,11 +162,10 @@
                                                         </button>
     
                                                         @if ($expandedHookId === $hook->id)
-                                                            <div class="mt-3 border-t border-gray-200 pt-3 text-sm text-gray-600 dark:border-white/10 dark:text-gray-400">
+                                                            <div class="mt-3 pt-3 border-t border-gray-200 text-sm text-gray-600 dark:border-white/10 dark:text-gray-400">
                                                                 @if (! empty($hook->description))
-                                                                    <p>
-                                                                        {{ $hook->description }}
-                                                                    </p>
+                                                                    {{-- dejar en una sola linea por la identación del <p> --}}
+                                                                    <p class="whitespace-pre-line leading-6">{{ trim($hook->description) }}</p>
                                                                 @else
                                                                     <p class="italic text-gray-400">
                                                                         Este hook no tiene descripción.

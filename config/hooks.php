@@ -2,139 +2,168 @@
 
 return [
     [
-        'name' => 'Authority',
-        'description' => 'Using authority figures (like Jeff Bezos or Oprah Winfrey) and authority positions (like Doctor or CEO) add credibility to your video. This makes your content more attractive and believable.'
+        'name' => 'Autoridad',
+        'description' => 'Usar figuras de autoridad, referentes conocidos o posiciones con credibilidad —como expertos, fundadores, médicos, CEOs, creadores grandes o marcas reconocidas— hace que tu contenido se sienta más confiable, atractivo y fácil de creer.'
     ],
     [
-        'name' => 'Beginners',
-        'description' => 'Calling out beginners in your packaging works well because beginners are the biggest and most eager-to-learn group of any audience.'
+        'name' => 'Principiantes',
+        'description' => 'Llamar directamente a principiantes funciona bien porque suelen ser el grupo más grande, más curioso y más dispuesto a aprender dentro de cualquier audiencia.'
     ],
     [
-        'name' => 'Confirms Suspicions',
-        'description' => 'Most people love saying, “I told you so!” and when you hint that you’ll confirm your audience’s suspicions in your video, it makes them want to watch so they can say this.'
+        'name' => 'Confirma Sospechas',
+        'description' => 'A la gente le encanta sentir que tenía razón. Cuando tu contenido sugiere que vas a confirmar algo que tu audiencia ya sospechaba, despiertas curiosidad y haces que quieran verlo para comprobarlo.'
     ],
     [
-        'name' => 'Constraint',
-        'description' => 'Constraints add limitations to a video, which make it more challenging and interesting.'
+        'name' => 'Restricción',
+        'description' => 'Las restricciones le agregan límites a una idea. Eso hace que el contenido se sienta más desafiante, específico e interesante.'
     ],
     [
-        'name' => 'Contrast',
-        'description' => 'When two opposite or unexpected terms are paired with each other they go against what you’re expecting and therefore build curiosity.'
+        'name' => 'Contraste',
+        'description' => 'Cuando juntas dos ideas opuestas, inesperadas o que normalmente no van juntas, rompes la expectativa de la audiencia y generas curiosidad.'
     ],
     [
-        'name' => 'Counterintuitive',
-        'description' => 'When you challenge what your audience is thinking you build curiosity because it’s not what they expect.'
+        'name' => 'Contraintuitivo',
+        'description' => 'Cuando desafías lo que tu audiencia cree o espera, creas curiosidad porque el mensaje no sigue el camino obvio.'
     ],
     [
-        'name' => 'Credibility',
-        'description' => 'Proving your credibility by talking about personal experience or an experiment builds trust and gets people more interested in your video.'
+        'name' => 'Credibilidad',
+        'description' => 'Mostrar experiencia personal, resultados, pruebas, casos o experimentos genera confianza y hace que la audiencia se interese más por tu contenido.'
     ],
     [
-        'name' => 'Curiosity',
-        'description' => 'Making your audience say, “Wait, what? I need to know more!” is the best way to get more people to click your videos. It’s like giving them a psychological itch that they need to scratch and the only way to scratch it is by watching your video.'
+        'name' => 'Curiosidad',
+        'description' => <<<'TEXT'
+Hacer que la audiencia piense “espera, ¿qué?” o “necesito saber más” es una de las formas más fuertes de atraer atención. Es como crear una tensión mental que solo se resuelve al consumir la pieza.
+
+Hay 10 formas principales de construir curiosidad en hooks, títulos, miniaturas, captions o piezas visuales:
+
+- Loop Abierto
+- Secreto
+- Pregunta
+- Extremo
+- Contraintuitivo
+- Contraste
+- Futuro
+- Raro
+- Restricción
+- X vs. Y
+TEXT,
     ],
     [
-        'name' => 'Daily',
-        'description' => 'Talking about things you can do every day makes them feel more tangible, easy to fit into your schedule and actually do. This makes people want to watch your video more.'
+        'name' => 'Diario',
+        'description' => 'Hablar de cosas que se pueden hacer todos los días hace que la idea se sienta más tangible, fácil de integrar a la rutina y más accionable.'
     ],
     [
-        'name' => 'Desire',
-        'description' => 'Videos about the audience’s hopes, dreams, desires, and goals are (obviously) interesting to them.'
+        'name' => 'Deseo',
+        'description' => 'El contenido que toca las esperanzas, sueños, deseos, metas o aspiraciones de la audiencia suele ser naturalmente atractivo para ellos.'
     ],
     [
         'name' => 'Drama',
-        'description' => 'People love drama (whether they like to admit it or not) and leveraging it in your titles is a great way to get people to click.'
+        'description' => 'A la gente le atrae el drama, aunque no siempre lo admita. Usarlo en títulos, hooks, captions o ideas puede hacer que el contenido se sienta más intenso y difícil de ignorar.'
     ],
     [
-        'name' => 'Epic',
-        'description' => 'On YouTube, you’re competing against cat videos and viral TikTok compilations. Doing something epic is a great way to stand out and get people’s attention.'
+        'name' => 'Épico',
+        'description' => 'En redes compites contra piezas rápidas, virales y visualmente fuertes. Hacer algo grande, ambicioso o fuera de lo común ayuda a destacar y captar atención.'
     ],
     [
-        'name' => 'Extreme',
-        'description' => 'Taking things to the extreme (often by using words that end in “-est”) is a great way to stand out and get people’s attention.'
+        'name' => 'Extremo',
+        'description' => 'Llevar una idea al extremo —por ejemplo usando conceptos como “el más”, “la peor”, “el mejor”, “nunca”, “siempre” o “definitivo”— ayuda a que el contenido se sienta más llamativo.'
     ],
     [
-        'name' => 'Fear',
-        'description' => 'Fear causes stress and stress causes action. And the obvious action to take when someone is stressed by your title or thumbnail is to click and watch your video.'
+        'name' => 'Miedo',
+        'description' => 'El miedo genera tensión, y la tensión impulsa acción. Cuando un hook toca un riesgo, una pérdida o una amenaza relevante, la audiencia siente más necesidad de prestar atención.'
     ],
     [
         'name' => 'FOMO',
-        'description' => 'We all have fear of missing out and when you give your audience FOMO with your title or thumbnail, they have to click to avoid missing out.'
+        'description' => 'Todos tenemos miedo de quedarnos fuera de algo importante. Cuando tu contenido activa esa sensación, la audiencia siente que necesita verlo para no perderse de algo.'
     ],
     [
-        'name' => 'Future',
-        'description' => 'Since the future is unknown, it’s an inherently curiosity-filled topic. Because of this, talking about the future a great way to get people’s attention and get them to click.'
+        'name' => 'Futuro',
+        'description' => 'El futuro es incierto, y por eso naturalmente despierta curiosidad. Hablar de lo que viene, lo que cambiará o lo que podría pasar es una forma fuerte de captar atención.'
     ],
     [
-        'name' => 'List',
-        'description' => 'Lists make videos feel more tangible (you know exactly what the video will be about) and they add some curiosity.'
+        'name' => 'Lista',
+        'description' => 'Las listas hacen que el contenido se sienta más claro y tangible. La audiencia entiende rápido qué va a recibir y, al mismo tiempo, siente curiosidad por conocer los puntos.'
     ],
     [
-        'name' => 'Mistake',
-        'description' => 'Nobody wants to make a mistake, so talking about mistakes is a great way to get people to click.'
+        'name' => 'Error',
+        'description' => 'Nadie quiere equivocarse. Hablar de errores, fallas o cosas que la audiencia podría estar haciendo mal es una forma efectiva de atraer atención.'
     ],
     [
-        'name' => 'Move From Pain',
-        'description' => 'Nobody wants to be in pain and when you promise to help your audience move away from pain, they’ll be eager to watch your video.'
+        'name' => 'Salir del Dolor',
+        'description' => 'Nadie quiere quedarse en una situación incómoda. Cuando tu contenido promete ayudar a la audiencia a alejarse de un problema, frustración o dolor, se vuelve más atractivo.'
     ],
     [
-        'name' => 'Negativity',
-        'description' => 'People are biologically wired to pay attention and remember negativity. Leveraging it is an effective way to get people’s attention and persuade them to click your video.'
+        'name' => 'Negatividad',
+        'description' => <<<'TEXT'
+Las personas tienden a prestar más atención a lo negativo, riesgoso o problemático. Usar ese ángulo puede hacer que una idea se sienta más urgente y memorable.
+
+Hay 9 formas principales de usar negatividad en hooks, títulos, miniaturas, captions o piezas visuales:
+
+- Drama
+- Miedo
+- Advertencia
+- Punto de Dolor
+- Salir del Dolor
+- Error
+- Arrepentimiento
+- FOMO
+- Detente
+TEXT,
     ],
     [
-        'name' => 'New Opportunity',
-        'description' => 'New opportunities offer hope. Your audience hasn’t failed with the new opportunity yet, so it offers them hope and gets them excited to watch your video.'
+        'name' => 'Nueva Oportunidad',
+        'description' => 'Las nuevas oportunidades generan esperanza. Como la audiencia todavía no ha fallado con esa nueva posibilidad, se siente más abierta, curiosa y motivada a prestarle atención.'
     ],
     [
-        'name' => 'Open Loop',
-        'description' => 'When you start a story, but don’t finish it, it makes people crave to know what happened, so they have to click your video. This is also known as a curiosity gap or cliffhanger.'
+        'name' => 'Loop Abierto',
+        'description' => 'Cuando empiezas una historia, idea o situación pero no la cierras de inmediato, la audiencia siente la necesidad de saber qué pasó. También se conoce como curiosity gap o cliffhanger.'
     ],
     [
-        'name' => 'Pain Point',
-        'description' => 'Mentioning pain points is a great way to grab your audience’s attention and persuade them to click.'
+        'name' => 'Punto de Dolor',
+        'description' => 'Mencionar un problema específico de la audiencia es una forma directa de captar atención, porque conecta con algo que ya sienten o están intentando resolver.'
     ],
     [
-        'name' => 'Question',
-        'description' => 'Asking a question is the most simple and basic way to build curiosity. It often works best when you ask a question everybody in your audience has asked themselves before.'
+        'name' => 'Pregunta',
+        'description' => 'Hacer una pregunta es una de las formas más simples de generar curiosidad. Funciona mejor cuando es una pregunta que la audiencia ya se ha hecho antes.'
     ],
     [
-        'name' => 'Refute Objection',
-        'description' => 'When you refute an objection or get rid of an excuse your audience has, then they’ll have no choice but to watch your video.'
+        'name' => 'Refutar Objeción',
+        'description' => 'Cuando eliminas una excusa, duda u objeción que tu audiencia tiene, haces que el contenido se sienta más difícil de ignorar.'
     ],
     [
-        'name' => 'Regret',
-        'description' => 'Nobody wants to live a life of regrets and mentioning potential regrets in your title or thumbnail is a powerful strategy to get people to click.'
+        'name' => 'Arrepentimiento',
+        'description' => 'Nadie quiere arrepentirse después. Mencionar un posible arrepentimiento, una oportunidad perdida o algo que la audiencia podría lamentar puede ser un ángulo muy poderoso.'
     ],
     [
-        'name' => 'Secret',
-        'description' => 'We’re all nosy and promising to reveal a secret in your video is a great way to build curiosity and get people to click.'
+        'name' => 'Secreto',
+        'description' => 'A todos nos da curiosidad lo oculto, lo poco dicho o lo que no todos saben. Prometer revelar un secreto o una verdad poco conocida es una forma fuerte de generar interés.'
     ],
     [
-        'name' => 'Specific Audience',
-        'description' => 'Calling out a specific audience makes that group feel like you made the video just for them, so they’re more likely to click.'
+        'name' => 'Audiencia Específica',
+        'description' => 'Llamar directamente a una audiencia específica hace que ese grupo sienta que el contenido fue hecho para ellos, aumentando la probabilidad de que presten atención.'
     ],
     [
-        'name' => 'Stop',
-        'description' => 'Telling your audience to stop doing something common or supposedly beneficial is so effective because it combines warning them and building curiosity.'
+        'name' => 'Detente',
+        'description' => 'Decirle a la audiencia que deje de hacer algo común, popular o supuestamente beneficioso funciona porque combina advertencia con curiosidad.'
     ],
     [
-        'name' => 'Time Frame',
-        'description' => 'Time frames can make a video feel more tangible, make goals feel achievable, and add a constraint to make the video more interesting.'
+        'name' => 'Marco de Tiempo',
+        'description' => 'Los marcos de tiempo pueden hacer varias cosas: vuelven la idea más concreta, hacen que una meta parezca más alcanzable y agregan una restricción que vuelve el contenido más interesante.'
     ],
     [
-        'name' => 'Timeliness',
-        'description' => 'Making content about what everybody is currently talking about is one of the most powerful tactics to get more views. This is also known as trendjacking or newsjacking.'
+        'name' => 'Actualidad',
+        'description' => 'Crear contenido sobre lo que la gente está hablando ahora mismo es una táctica poderosa para captar atención. Puede ser una película en tendencia, el inicio de año, un cambio de temporada, una noticia, un tema caliente o cualquier conversación cultural activa. También se conoce como trendjacking o newsjacking.'
     ],
     [
-        'name' => 'Warning',
-        'description' => 'Humans are genetically wired to pay attention to warnings. You can leverage this to get more people to click your videos by dropping warnings in your titles or thumbnails.'
+        'name' => 'Advertencia',
+        'description' => 'Las personas están programadas para prestar atención a las advertencias. Puedes usar esto en hooks, títulos, captions o piezas visuales para hacer que el contenido se sienta más urgente.'
     ],
     [
-        'name' => 'Weird',
-        'description' => 'People love weird, strange, or odd things and talking about them is a great way to build curiosity.'
+        'name' => 'Raro',
+        'description' => 'A la gente le atraen las cosas raras, extrañas o fuera de lo común. Usarlas como ángulo ayuda a generar curiosidad.'
     ],
     [
         'name' => 'X vs. Y',
-        'description' => 'Everybody loves a little competition and pitting options against each other builds curiosity because people want to see how they compare and what the outcome will be.'
+        'description' => 'A todos nos interesa una comparación o competencia. Enfrentar dos o tres opciones genera curiosidad porque la audiencia quiere ver cómo se comparan y cuál gana.'
     ],
 ];
